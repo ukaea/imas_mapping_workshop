@@ -1,0 +1,12 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "slideNumber": "checkbox",
+    "menu": "checkbox",
+    "progress": "checkbox",
+    "overview": "checkbox",
+    "css": "multitext"
+  }
+}
