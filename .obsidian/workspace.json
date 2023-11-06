@@ -4,19 +4,96 @@
     "type": "split",
     "children": [
       {
-        "id": "80573bd0c29f223b",
+        "id": "d57aed8ff624d722",
+        "type": "split",
+        "children": [
+          {
+            "id": "be2e563d9c2306e5",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "b5b11da29cee3d0f",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "overview_presentation.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
+              },
+              {
+                "id": "fb1f993da8e7fd0a",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "minml.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "20fbf6ab539596fe",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "4269c8c6fb9270b2",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/jhollocombe/Documents/imas_mapping_workshop",
+                      "focus": false,
+                      "profile": {
+                        "args": [],
+                        "executable": "/bin/zsh",
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": true,
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {},
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": {
+                        "columns": 68,
+                        "data": "jhollocombe@N0240-Mac imas_mapping_workshop % git status\r\nOn branch main\r\nYour branch is up to date with 'origin/main'.\r\n\r\nChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\u001b[8C\u001b[31mmodified:   .obsidian/community-plugins.json\r\n\u001b[8Cmodified:   .obsidian/workspace.json\r\n\u001b[8Cmodified:   css/extra.css\r\n\u001b[8Cmodified:   installation_workshop.md\r\n\u001b[8Cmodified:   overview_presentation.md\r\n\u001b[8Cmodified:   uda_plugin_workshop.md\r\n\r\n\u001b[0mUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\u001b[8C\u001b[31m.DS_Store\r\n\u001b[8C.obsidian/plugins/terminal/\r\n\u001b[8Cimages/Capnp Tree.svg\r\n\u001b[8Cimas_uda_presentation.md\r\n\u001b[8Cminml.md\r\n\r\n\u001b[0mno changes added to commit (use \"git add\" and/or \"git commit -a\")\r\njhollocombe@N0240-Mac imas_mapping_workshop % \r\njhollocombe@N0240-Mac imas_mapping_workshop % git add .obsidian/plugins/terminal images/Capnp\\ Tree.svg imas_uda_presentation.md minml.md\r\njhollocombe@N0240-Mac imas_mapping_workshop % git status\r\nOn branch main\r\nYour branch is up to date with 'origin/main'.\r\n\r\nChanges to be committed:\r\n  (use \"git restore --staged <file>...\" to unstage)\r\n\u001b[8C\u001b[32mnew file:   .obsidian/plugins/terminal/data.json\r\n\u001b[8Cnew file:   .obsidian/plugins/terminal/main.js\r\n\u001b[8Cnew file:   .obsidian/plugins/terminal/manifest.json\r\n\u001b[8Cnew file:   .obsidian/plugins/terminal/styles.css\r\n\u001b[8Cnew file:   images/Capnp Tree.svg\r\n\u001b[8Cnew file:   imas_uda_presentation.md\r\n\u001b[8Cnew file:   minml.md\r\n\r\n\u001b[0mChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\u001b[8C\u001b[31mmodified:   .obsidian/community-plugins.json\r\n\u001b[8Cmodified:   .obsidian/workspace.json\r\n\u001b[8Cmodified:   css/extra.css\r\n\u001b[8Cmodified:   installation_workshop.md\r\n\u001b[8Cmodified:   overview_presentation.md\r\n\u001b[8Cmodified:   uda_plugin_workshop.md\r\n\r\n\u001b[0mUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\u001b[8C\u001b[31m.DS_Store\r\n\r\n\u001b[0mjhollocombe@N0240-Mac imas_mapping_workshop % git pull   \r\nAlready up to date.\r\njhollocombe@N0240-Mac imas_mapping_workshop % git commit -a -m 'working on overview presentation'\u001b[1D",
+                        "rows": 22
+                      }
+                    }
+                  },
+                  "pinned": true
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal"
+      },
+      {
+        "id": "d7a6722da0833ad3",
         "type": "tabs",
         "children": [
           {
-            "id": "10f9fa173afcfc92",
+            "id": "bd3a1441da99a808",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "overview_presentation.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "reveal-preview-view",
+              "state": {}
             }
           }
         ]
@@ -85,7 +162,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "overview_presentation.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +178,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "overview_presentation.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +199,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "overview_presentation.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -144,15 +217,21 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-advanced-slides:Show Slide Preview": false
+      "obsidian-advanced-slides:Show Slide Preview": false,
+      "terminal:Open terminal": false
     }
   },
-  "active": "10f9fa173afcfc92",
+  "active": "4269c8c6fb9270b2",
   "lastOpenFiles": [
+    "overview_presentation.md",
+    "imas_uda_presentation.md",
+    "images/Capnp Tree.svg",
+    "uda_plugin_workshop.md",
+    "minml.md",
+    "installation_workshop.md.sb-ef95206e-RTIFZg",
+    "uda_plugin_workshop.md.sb-ef95206e-9eJEfd",
     "templates/tpl-ukaea-title.md",
     "templates/tpl-ukaea-slide.md",
-    "overview_presentation.md",
-    "uda_plugin_workshop.md",
     "templates/tpl-default.md",
     "css/extra.css.md",
     "css/extra.css",
@@ -170,7 +249,6 @@
     "mappings_presentation.md",
     "images/UDA Client.svg",
     "images/UDA Server.svg",
-    "images/UDA Client 1.svg",
     "ITER mapping workshop.md",
     "mappings_workshop.md",
     "installation_presentation.md",

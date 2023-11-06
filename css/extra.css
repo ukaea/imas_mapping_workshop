@@ -8,6 +8,16 @@ div.slide-number {
   text-align: right !important;
 }
 
+.reveal code {
+  font-family: 'Monaco', monospace;
+}
+
+.reveal code.hljs {
+  font-size: 1.3em;
+  font-family: 'Monaco', monospace;
+  line-height: 1.3em;
+}
+
 .reveal .slide-number:has(a[href="#/1"]) {
   display: none !important;
 }
@@ -25,6 +35,6 @@ div.slide-number {
 
 .reveal h3 {
 	color: #9091b3;
-	font-size: 1em;
+	font-size: 1.2em;
 	text-transform: none;
 }

@@ -1,10 +1,18 @@
 ---
 theme: css/robot-lung.css
-slideNumber: true
 transition: convex
 width: "1024"
 height: "800"
+maxScale: "4"
+controls: true
+progress: true
+slideNumber: true
+enableMenu: true
+css:
+  - css/extra.css
+defaultTemplate: "[[tpl-ukaea-slide]]"
 ---
+
 - Create a new plugin
 - CMake configure
 - Simple build & install
