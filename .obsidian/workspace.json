@@ -4,45 +4,59 @@
     "type": "split",
     "children": [
       {
-        "id": "d57aed8ff624d722",
+        "id": "be2e563d9c2306e5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b5b11da29cee3d0f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "overview_presentation.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "fb1f993da8e7fd0a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "minml.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "33cc7a6a7529ea5a",
         "type": "split",
         "children": [
           {
-            "id": "be2e563d9c2306e5",
+            "id": "d7a6722da0833ad3",
             "type": "tabs",
             "children": [
               {
-                "id": "b5b11da29cee3d0f",
+                "id": "bd3a1441da99a808",
                 "type": "leaf",
                 "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "overview_presentation.md",
-                    "mode": "source",
-                    "source": false
-                  }
-                }
-              },
-              {
-                "id": "fb1f993da8e7fd0a",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "minml.md",
-                    "mode": "source",
-                    "source": false
-                  }
+                  "type": "reveal-preview-view",
+                  "state": {}
                 }
               }
             ]
           },
           {
-            "id": "20fbf6ab539596fe",
+            "id": "f67c11ef4332e29f",
             "type": "tabs",
             "children": [
               {
-                "id": "4269c8c6fb9270b2",
+                "id": "bbd0423ba3ab9e30",
                 "type": "leaf",
                 "pinned": true,
                 "state": {
@@ -70,9 +84,9 @@
                         "useWin32Conhost": true
                       },
                       "serial": {
-                        "columns": 68,
-                        "data": "jhollocombe@N0240-Mac imas_mapping_workshop % git status\r\nOn branch main\r\nYour branch is up to date with 'origin/main'.\r\n\r\nChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\u001b[8C\u001b[31mmodified:   .obsidian/community-plugins.json\r\n\u001b[8Cmodified:   .obsidian/workspace.json\r\n\u001b[8Cmodified:   css/extra.css\r\n\u001b[8Cmodified:   installation_workshop.md\r\n\u001b[8Cmodified:   overview_presentation.md\r\n\u001b[8Cmodified:   uda_plugin_workshop.md\r\n\r\n\u001b[0mUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\u001b[8C\u001b[31m.DS_Store\r\n\u001b[8C.obsidian/plugins/terminal/\r\n\u001b[8Cimages/Capnp Tree.svg\r\n\u001b[8Cimas_uda_presentation.md\r\n\u001b[8Cminml.md\r\n\r\n\u001b[0mno changes added to commit (use \"git add\" and/or \"git commit -a\")\r\njhollocombe@N0240-Mac imas_mapping_workshop % \r\njhollocombe@N0240-Mac imas_mapping_workshop % git add .obsidian/plugins/terminal images/Capnp\\ Tree.svg imas_uda_presentation.md minml.md\r\njhollocombe@N0240-Mac imas_mapping_workshop % git status\r\nOn branch main\r\nYour branch is up to date with 'origin/main'.\r\n\r\nChanges to be committed:\r\n  (use \"git restore --staged <file>...\" to unstage)\r\n\u001b[8C\u001b[32mnew file:   .obsidian/plugins/terminal/data.json\r\n\u001b[8Cnew file:   .obsidian/plugins/terminal/main.js\r\n\u001b[8Cnew file:   .obsidian/plugins/terminal/manifest.json\r\n\u001b[8Cnew file:   .obsidian/plugins/terminal/styles.css\r\n\u001b[8Cnew file:   images/Capnp Tree.svg\r\n\u001b[8Cnew file:   imas_uda_presentation.md\r\n\u001b[8Cnew file:   minml.md\r\n\r\n\u001b[0mChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\u001b[8C\u001b[31mmodified:   .obsidian/community-plugins.json\r\n\u001b[8Cmodified:   .obsidian/workspace.json\r\n\u001b[8Cmodified:   css/extra.css\r\n\u001b[8Cmodified:   installation_workshop.md\r\n\u001b[8Cmodified:   overview_presentation.md\r\n\u001b[8Cmodified:   uda_plugin_workshop.md\r\n\r\n\u001b[0mUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\u001b[8C\u001b[31m.DS_Store\r\n\r\n\u001b[0mjhollocombe@N0240-Mac imas_mapping_workshop % git pull   \r\nAlready up to date.\r\njhollocombe@N0240-Mac imas_mapping_workshop % git commit -a -m 'working on overview presentation'\u001b[1D",
-                        "rows": 22
+                        "columns": 82,
+                        "data": "jhollocombe@N0240-Mac imas_mapping_workshop % git status\r\nOn branch main\r\nYour branch is up to date with 'origin/main'.\r\n\r\nChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\u001b[8C\u001b[31mmodified:   .obsidian/workspace.json\r\n\u001b[8Cmodified:   css/extra.css\r\n\r\n\u001b[0mUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\u001b[8C\u001b[31m.DS_Store\r\n\u001b[8Cexport/\r\n\r\n\u001b[0mno changes added to commit (use \"git add\" and/or \"git commit -a\")\r\njhollocombe@N0240-Mac imas_mapping_workshop % git add export \r\njhollocombe@N0240-Mac imas_mapping_workshop % git commit -a -m \"Adding export of overview presentation\"\u001b[1D",
+                        "rows": 24
                       }
                     }
                   },
@@ -83,20 +97,6 @@
           }
         ],
         "direction": "horizontal"
-      },
-      {
-        "id": "d7a6722da0833ad3",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "bd3a1441da99a808",
-            "type": "leaf",
-            "state": {
-              "type": "reveal-preview-view",
-              "state": {}
-            }
-          }
-        ]
       }
     ],
     "direction": "vertical"
@@ -221,38 +221,46 @@
       "terminal:Open terminal": false
     }
   },
-  "active": "4269c8c6fb9270b2",
+  "active": "bbd0423ba3ab9e30",
   "lastOpenFiles": [
     "overview_presentation.md",
+    "export/overview_presentation/css/extra.css",
+    "export/overview_presentation/extra.css",
+    "export/overview_presentation/images/Capnp Tree.svg",
+    "export/overview_presentation/images/UDA Client.svg",
+    "export/overview_presentation/images/UDA Server.svg",
+    "export/overview_presentation/images/ukaea_title.png",
+    "export/overview_presentation/images/ukaea_slide.png",
+    "export/overview_presentation/images/UDA.svg",
+    "export/overview_presentation/images",
+    "export/overview_presentation/plugin/chalkboard/README.md",
+    "export/overview_presentation/plugin/chalkboard/_style.css",
+    "export/overview_presentation/plugin/chalkboard/img/blackboard.png",
+    "export/overview_presentation/plugin/chalkboard/img/boardmarker-black.png",
+    "export/overview_presentation/plugin/chalkboard/img/boardmarker-blue.png",
+    "export/overview_presentation/plugin/chalkboard/img/boardmarker-green.png",
+    "export/overview_presentation/plugin/chalkboard/style.css",
+    "export/overview_presentation/plugin/chalkboard/plugin.js",
+    "export/overview_presentation/plugin/chalkboard/plugin (copy).js",
+    "export/overview_presentation/plugin/chalkboard/img",
+    "export/overview_presentation/plugin/chalkboard",
+    "export/overview_presentation/plugin/chart/plugin.js",
+    "export/overview_presentation/plugin/chart/README.md",
+    "export/overview_presentation/plugin/customcontrols/README.md",
+    "export/overview_presentation/plugin/menu/CONTRIBUTING.md",
+    "export/overview_presentation/plugin/menu/README.md",
     "imas_uda_presentation.md",
-    "images/Capnp Tree.svg",
     "uda_plugin_workshop.md",
     "minml.md",
-    "installation_workshop.md.sb-ef95206e-RTIFZg",
-    "uda_plugin_workshop.md.sb-ef95206e-9eJEfd",
     "templates/tpl-ukaea-title.md",
     "templates/tpl-ukaea-slide.md",
     "templates/tpl-default.md",
     "css/extra.css.md",
-    "css/extra.css",
-    "css",
     "templates/tpl-con-title.md",
-    "images/Title-Wide.png",
-    "images/ukaea_slide.png",
-    "images/ukaea_title.png",
-    "images/jet.png",
-    "images/jet.jpg",
     "installation_workshop.md",
-    "images/title.png",
-    "images/logo.png",
-    "templates",
     "mappings_presentation.md",
-    "images/UDA Client.svg",
-    "images/UDA Server.svg",
     "ITER mapping workshop.md",
     "mappings_workshop.md",
-    "installation_presentation.md",
-    "overview_presentation.md.sb-ef95206e-jTy1FD",
-    "images"
+    "installation_presentation.md"
   ]
 }

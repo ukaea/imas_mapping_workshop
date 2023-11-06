@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="css/robot-lung.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+
+    <link rel="stylesheet" href="css/extra.css" />
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_title.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="" style="padding: -10 0 0 0; box-sizing: border-box; position: absolute; left: -15%; top: 65%; height: 25%; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+
+
+
+# UDA Overview Presentation
+## IMAS UDA workshop, ITER
+### Jonathan Hollocombe, November 2023
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Contents
+
+- History & Philosophy
+- Design
+- Architecture
+- Request Processing
+- Batch Requests
+- Plugins
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - History & Philosophy
+
+- Created for MAST to abstract away change from IDA3 (custom binary format) to NetCDF4
+- Also to allow interaction between 32bit and 64bit machines
+- Client-Server architecture to separate users from location and format of data files
+- Developed a plugin architecture on the server to allow more formats to be added without having to update the server
+- Coupling of network data transport with extensible server plugins makes it useful for interfacing with IMAS for remote data access
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Design
+
+<img src="images/UDA.svg" alt="" style="width: 1000px; object-fit: fill">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Design (Server)
+
+<img src="images/UDA Server.svg" alt="" style="width: 700px; object-fit: fill">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Design (Client)
+
+<img src="images/UDA Client.svg" alt="" style="width: 400px; object-fit: fill">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Server Architecture
+
+- Plugins loaded based on Plugins.conf
+- Requests are received as Signal & Source
+- Multiple requests can be received in one batch
+- Requests are handled by calling one or more plugins
+- Data is serialised and returned to client
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - udaPlugins.conf
+
+`NAME, TYPE, FUNC, LIB_NAME, CONFIG, DESC, EXAMPLE`
+
+- `NAME` - name plugin is known to UDA client
+- `TYPE` - type of plugin: **`function`**, `file`, `server`
+- `FUNC` - the entry function that will be called by the UDA server
+- `LIB_NAME` - the name of the shared library to load
+- `CONFIG` - nearly always "`*, 1, 1, 1`"
+	- `EXTENSION` - only used by `file` plugins
+	- `INTERFACE`  - plugin interface supported, currently must be `1`
+	- `CACHE` - whether the returned data can be cached in the server
+	- `PUBLIC` - whether the plugin is public, i.e. can be called by clients
+- `DESC` - a description of the plugin
+- `EXAMPLE` - an example of calling the plugin
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - udaPlugins.conf Example
+
+```text
+BYTES, function, bytesPlugin, libbytes_plugin.dylib, *, 1, 1, 1, data reader to access files as a block of bytes without interpretation, BYTES::read()  
+HELP, function, helpPlugin, libhelp_plugin.dylib, *, 1, 1, 1, Service Discovery: list the details on all registered services, HELP::services()  
+TEMPLATEPLUGIN, function, templatePlugin, libtemplate_plugin.dylib, *, 1, 1, 1, Standardised Plugin Template, TEMPLATEPLUGIN::functionName()  
+TESTPLUGIN, function, testplugin, libtestplugin_plugin.dylib, *, 1, 1, 1, Generate Test Data, TESTPLUGIN::test1()  
+UDA, function, UDAPlugin, libuda_plugin.dylib, *, 1, 1, 1, forward on requests to the UDA client, UDA::get(host=idam0, port=56565, signal=ip, source=12345)  
+VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data to viewport pixel size, viewport::get()
+```
+
+<div class="has-light-background" style="background-color: orange; padding: 0 20px 0 20px; box-sizing: border-box; position: absolute; left: 10%; top: 70%; height: 20%; width: 80%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+**Note\:** udaPlugins.conf may be replaced by auto-plugin discovery in a future UDA version
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Request Processing
+
+- Client sends request to server:
+	- `signal` - what to read
+	- `source` - where to read it from
+- A metadata database can be used to perform name aliasing
+	- e.g. for MAST-U we map
+		- signal name `ip` -> `AMC_PLASMA_CURRENT`
+		- source `30420` -> `$MAST_DATA/30420/LATEST/amc_30420.nc`
+	- Metadata lookup is not covered in this workshop but more details can be provided on request
+- For direct plugin requests only the signal argument is needed
+	- Example:
+		- signal = "HELP::help()"
+		- source = ""
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Request Processing (cont.)
+
+- A plugin request looks like:
+	- `PLUGIN::FUNCTION(ARGS)`
+	- `PLUGIN` - the name of the plugin as defined in the `udaPlugins.conf`
+	- `FUNCTION`
+	- `ARGS` - 0 or more comma separated arguments to be passed to the function, e.g.
+		- `PLUGIN::FUNC(foo=1)` - passing integer arg
+		- `PLUGIN::FUNC(foo=1.23)` - parsing float arg
+		- `PLUGIN::FUNC(foo='abc')` - parsing string arg (quotes are optional)
+		- `PLUGIN::FUNC(foo=1;2;3)` - parsing list arg
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Batch Requests
+
+- Multiple requests can be sent to the UDA server at one time
+- Each request is processed by the server and passed to a plugin
+- The resultant data blocks are concatenated and returned to the client in one go
+- Batch requests reduce TCP round-trip overhead and can help with plugin call times
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Plugins
+
+- The UDA plugins is where most of the work is done in the server
+- The plugins responsibility is to handle the request parsed from the server and return data back
+- Plugins can be written in any language but must be compiled into a shared library and present a C style entry function
+	- This entry function must match the name provided in the udaPlugins.conf
+- More details will be provided in the plugin workshop
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Plugins - Entry Function
+
+- The UDA plugin entry function has the following form:
+
+```C
+int entryFunction(IDAM_PLUGIN_INTERFACE* plugin_interface)
+```
+
+where:
+
+- `IDAM_PLUGIN_INTERFACE` is the structure passed in from the server which is used to access the request and return the data
+- The return value should be `0` for success or non-`0` for an error state
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Plugins - Basic Structure
+
+```C
+int entryFunction(IDAM_PLUGIN_INTERFACE* plugin_interface)
+{
+	static bool init = false;
+
+	if (udaFunctionCalled(plugin_interface, "reset")) {  
+	    if (!init) { return 0; }
+	    // reset plugin to initial state
+	    init = false;
+	    return 0;
+	}
+
+...
+```
+- Function name passed to `udaFunctionCalled` is case-insensitive
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Plugins - Basic Structure (cont.)
+
+```C
+...
+
+if (!init 
+	|| udaFunctionCalled(plugin_interface, "init|initialise")) {
+	// perform any plugin initialistion
+    init = true;
+    if (udaFunctionCalled(plugin_interface, "init|initialise")) {  
+        return 0;  
+    }  
+}
+
+```
+- Multiple names can be checked if passed to `udaFunctionCalled` separated by `|` character
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Plugins - Basic Structure (cont.)
+
+```C
+...
+
+if (udaFunctionCalled(plugin_interface, "help")
+	|| udaDefaultFunctionCalled(plugin_interface)) {  
+	...
+} else if (udaFunctionCalled(plugin_interface, "version")) {  
+	...
+} else if ...
+
+} else if (udaFunctionCalled(plugin_interface, "something")) {  
+    return do_something(plugin_interface);  
+}
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Plugins - Default Plugins
+
+- `bytes` - a plugin for returning files back as raw bytes, useful if no other access plugins are available
+- `hdf5` - a plugin for reading HDF5 files
+- `help` - a plugin for return help information about UDA and available services
+- `keyvalue` - a plugin for interacting with LevelDB key-value store
+- `template` - an empty plugin which can be copied to create new plugins
+- `uda` - a plugin used to call other UDA servers
+- `viewport` - a plugin to reshape data to fit in a fixed viewport
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Plugins - Examples
+
+**HELP:**
+```text
+help::ping() - check server is responding
+help::help() - get basic UDA usage
+help::services() - list the plugins available on the server
+```
+
+**UDA**:
+```text
+UDA::get(host=..., port=..., signal=..., source=...)
+```
+
+**BYTES**:
+```text
+BYTES::read(path=...)
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## UDA - Serialisation
+
+- Data is returned from the server to the client via the `DATA_BLOCK` structure
+	- Available on the plugin interface as<br>
+	  `interface->data_block`
+- This data block contains space for the data, metadata & dimensions
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Serialisation - Data Block
+
+```C
+typedef struct DataBlock {  
+    unsigned int rank;  
+    int order;  
+    int data_type;
+  
+    int data_n;
+    char* data;
+  
+    char data_units[STRING_LENGTH];  
+    char data_label[STRING_LENGTH];  
+    char data_desc[STRING_LENGTH];  
+  
+    DIMS* dims;
+} DATA_BLOCK;
+```
+
+Note\: Not the full DataBlock, only showing the relevant fields for plugin development.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Serialisation - Dims Block
+
+```C
+typedef struct Dims {  
+    int data_type; // Type of data  
+    int dim_n; // Array lengths  
+  
+    char* dim; // Dimension Data Array  
+  
+    char dim_units[STRING_LENGTH];  
+    char dim_label[STRING_LENGTH];  
+} DIMS;
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Serialisation - Data Types
+
+```C
+typedef enum UdaType {  
+    UDA_TYPE_UNKNOWN = 0,  
+    UDA_TYPE_CHAR = 1,  
+    UDA_TYPE_SHORT = 2,  
+    UDA_TYPE_INT = 3,  
+    UDA_TYPE_UNSIGNED_INT = 4,  
+    UDA_TYPE_LONG = 5,  
+    UDA_TYPE_FLOAT = 6,  
+    UDA_TYPE_DOUBLE = 7,  
+    UDA_TYPE_UNSIGNED_CHAR = 8,  
+    UDA_TYPE_UNSIGNED_SHORT = 9,  
+    UDA_TYPE_UNSIGNED_LONG = 10,  
+    UDA_TYPE_LONG64 = 11,  
+    UDA_TYPE_UNSIGNED_LONG64 = 12,  
+    UDA_TYPE_COMPLEX = 13,  
+    UDA_TYPE_DCOMPLEX = 14,  
+    UDA_TYPE_UNDEFINED = 15,  
+    UDA_TYPE_VLEN = 16,  
+    UDA_TYPE_STRING = 17,  
+    UDA_TYPE_COMPOUND = 18,  
+    UDA_TYPE_OPAQUE = 19,  
+    UDA_TYPE_ENUM = 20,  
+    UDA_TYPE_VOID  = 21,  
+    UDA_TYPE_CAPNP = 22,  
+    UDA_TYPE_STRING2 = 99  
+} UDA_TYPE;
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Serialisation - Cap'n'Proto Serialisation
+
+<img src="images/Capnp Tree.svg" alt="" style="width: 800px; object-fit: fill">
+
+
+- As an alternative of writing array data to the DataBlock you can instead write the data in a structure tree and then serialise that tree using Cap'n'Proto, returning the serialised buffer
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### UDA - Serialisation - Cap'n'Proto Example
+
+```C++
+auto tree = uda_capnp_new_tree();  
+auto root = uda_capnp_get_root(tree);  
+uda_capnp_set_node_name(root, "root");  
+uda_capnp_add_children(root, 3);  
+  
+auto child = uda_capnp_get_child(tree, root, 0);  
+uda_capnp_set_node_name(child, "double_array");  
+  
+std::vector<double> vec(30);  
+for (int i = 0; i < 30; ++i) {  
+    vec[i] = i / 10.0;  
+}  
+uda_capnp_add_array_f64(child, vec.data(), vec.size());  
+  
+child = uda_capnp_get_child(tree, root, 1);  
+uda_capnp_set_node_name(child, "i32_array");  
+  
+std::vector<int32_t> ivec(100);  
+for (int i = 0; i < 100; ++i) {  
+    ivec[i] = i;  
+}  
+uda_capnp_add_array_i32(child, ivec.data(), ivec.size());  
+  
+child = uda_capnp_get_child(tree, root, 2);  
+uda_capnp_set_node_name(child, "i64_scalar");  
+  
+uda_capnp_add_i64(child, 999);  
+  
+auto buffer = uda_capnp_serialise(tree);  
+  
+DATA_BLOCK* data_block = plugin_interface->data_block;  
+initDataBlock(data_block);  
+  
+data_block->data_n = static_cast<int>(buffer.size);  
+data_block->data = buffer.data;  
+data_block->dims = nullptr;  
+data_block->data_type = UDA_TYPE_CAPNP;
+```
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/menu/menu.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+		  RevealMenu,
+        ],
+
+
+    	allottedTime: 120 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+		menu: {
+			loadIcons: false
+		}
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":"1024","height":"800","margin":0.04,"maxScale":"4","controls":true,"progress":true,"slideNumber":true,"transition":"convex","transitionSpeed":"default"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>
