@@ -95,7 +95,7 @@
 
 # UDA Overview Presentation
 ## IMAS UDA workshop, ITER
-### Jonathan Hollocombe, November 2023
+#### Jonathan Hollocombe, November 2023
 
 </div>
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
@@ -112,7 +112,7 @@
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - History & Philosophy
+## UDA — History & Philosophy
 
 - Created for MAST to abstract away change from IDA3 (custom binary format) to NetCDF4
 - Also to allow interaction between 32bit and 64bit machines
@@ -122,25 +122,25 @@
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Design
+## UDA — Design
 
 <img src="images/UDA.svg" alt="" style="width: 1000px; object-fit: fill">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Design (Server)
+## UDA — Design (Server)
 
 <img src="images/UDA Server.svg" alt="" style="width: 700px; object-fit: fill">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Design (Client)
+## UDA — Design (Client)
 
 <img src="images/UDA Client.svg" alt="" style="width: 400px; object-fit: fill">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Server Architecture
+## UDA — Server Architecture
 
 - Plugins loaded based on Plugins.conf
 - Requests are received as Signal & Source
@@ -150,7 +150,7 @@
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - udaPlugins.conf
+## UDA — udaPlugins.conf
 
 `NAME, TYPE, FUNC, LIB_NAME, CONFIG, DESC, EXAMPLE`
 
@@ -168,7 +168,7 @@
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - udaPlugins.conf Example
+## UDA — udaPlugins.conf Example
 
 ```text
 BYTES, function, bytesPlugin, libbytes_plugin.dylib, *, 1, 1, 1, data reader to access files as a block of bytes without interpretation, BYTES::read()  
@@ -186,15 +186,15 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Request Processing
+## UDA — Request Processing
 
 - Client sends request to server:
 	- `signal` - what to read
 	- `source` - where to read it from
 - A metadata database can be used to perform name aliasing
 	- e.g. for MAST-U we map
-		- signal name `ip` -> `AMC_PLASMA_CURRENT`
-		- source `30420` -> `$MAST_DATA/30420/LATEST/amc_30420.nc`
+		- signal name `ip` ⇒ `AMC_PLASMA_CURRENT`
+		- source `30420` ⇒ `$MAST_DATA/30420/LATEST/amc_30420.nc`
 	- Metadata lookup is not covered in this workshop but more details can be provided on request
 - For direct plugin requests only the signal argument is needed
 	- Example:
@@ -203,7 +203,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Request Processing (cont.)
+## UDA — Request Processing (cont.)
 
 - A plugin request looks like:
 	- `PLUGIN::FUNCTION(ARGS)`
@@ -217,7 +217,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Batch Requests
+## UDA — Batch Requests
 
 - Multiple requests can be sent to the UDA server at one time
 - Each request is processed by the server and passed to a plugin
@@ -226,7 +226,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Plugins
+## UDA — Plugins
 
 - The UDA plugins is where most of the work is done in the server
 - The plugins responsibility is to handle the request parsed from the server and return data back
@@ -236,7 +236,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Plugins - Entry Function
+### UDA — Plugins - Entry Function
 
 - The UDA plugin entry function has the following form:
 
@@ -251,7 +251,7 @@ where:
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Plugins - Basic Structure
+### UDA — Plugins — Basic Structure
 
 ```C
 int entryFunction(IDAM_PLUGIN_INTERFACE* plugin_interface)
@@ -271,7 +271,7 @@ int entryFunction(IDAM_PLUGIN_INTERFACE* plugin_interface)
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Plugins - Basic Structure (cont.)
+### UDA — Plugins — Basic Structure (cont.)
 
 ```C
 ...
@@ -290,7 +290,7 @@ if (!init
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Plugins - Basic Structure (cont.)
+### UDA — Plugins — Basic Structure (cont.)
 
 ```C
 ...
@@ -309,7 +309,7 @@ if (udaFunctionCalled(plugin_interface, "help")
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Plugins - Default Plugins
+### UDA — Plugins — Default Plugins
 
 - `bytes` - a plugin for returning files back as raw bytes, useful if no other access plugins are available
 - `hdf5` - a plugin for reading HDF5 files
@@ -321,7 +321,7 @@ if (udaFunctionCalled(plugin_interface, "help")
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Plugins - Examples
+### UDA — Plugins — Examples
 
 **HELP:**
 ```text
@@ -342,7 +342,7 @@ BYTES::read(path=...)
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-## UDA - Serialisation
+## UDA — Serialisation
 
 - Data is returned from the server to the client via the `DATA_BLOCK` structure
 	- Available on the plugin interface as<br>
@@ -351,7 +351,7 @@ BYTES::read(path=...)
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Serialisation - Data Block
+### UDA — Serialisation — Data Block
 
 ```C
 typedef struct DataBlock {  
@@ -374,7 +374,7 @@ Note\: Not the full DataBlock, only showing the relevant fields for plugin devel
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Serialisation - Dims Block
+### UDA — Serialisation — Dims Block
 
 ```C
 typedef struct Dims {  
@@ -390,7 +390,7 @@ typedef struct Dims {
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Serialisation - Data Types
+### UDA — Serialisation — Data Types
 
 ```C
 typedef enum UdaType {  
@@ -423,7 +423,7 @@ typedef enum UdaType {
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Serialisation - Cap'n'Proto Serialisation
+### UDA — Serialisation — Cap'n'Proto Serialisation
 
 <img src="images/Capnp Tree.svg" alt="" style="width: 800px; object-fit: fill">
 
@@ -432,7 +432,7 @@ typedef enum UdaType {
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-### UDA - Serialisation - Cap'n'Proto Example
+### UDA — Serialisation — Cap'n'Proto Example
 
 ```C++
 auto tree = uda_capnp_new_tree();  

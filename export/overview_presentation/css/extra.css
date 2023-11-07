@@ -18,6 +18,10 @@ div.slide-number {
   line-height: 1.3em;
 }
 
+.reveal li {
+  margin-bottom: 0.3em;
+}
+
 .reveal .slide-number:has(a[href="#/"]) {
   display: none !important;
 }
@@ -37,4 +41,30 @@ div.slide-number {
 	color: #9091b3;
 	font-size: 1.2em;
 	text-transform: none;
+}
+
+.reveal h4 {
+	color: #9091b3;
+	font-size: 0.8em;
+	text-transform: none;
+}
+
+.reveal pre code {
+  background-color: #002F55;
+}
+
+.reveal blockquote {
+  width: auto;
+  font-style: normal;
+  background-color: #002F55;
+  color: white;
+}
+
+.reveal blockquote p::before {
+  content: 'Note: ';
+  font-weight: bold;
+}
+
+.reveal img {
+  border-color: #002F55 !important;
 }

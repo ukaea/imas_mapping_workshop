@@ -13,24 +13,6 @@
   "pinNewInstance": true,
   "preferredRenderer": "webgl",
   "profiles": {
-    "darwinExternalDefault": {
-      "args": [
-        "\"$PWD\""
-      ],
-      "executable": "/System/Applications/Utilities/Terminal.app/Contents/macOS/Terminal",
-      "name": "",
-      "platforms": {
-        "darwin": true
-      },
-      "restoreHistory": true,
-      "successExitCodes": [
-        "0",
-        "SIGINT",
-        "SIGTERM"
-      ],
-      "terminalOptions": {},
-      "type": "external"
-    },
     "darwinIntegratedDefault": {
       "args": [],
       "executable": "/bin/zsh",
@@ -48,6 +30,24 @@
       "terminalOptions": {},
       "type": "integrated",
       "useWin32Conhost": true
+    },
+    "darwinExternalDefault": {
+      "args": [
+        "\"$PWD\""
+      ],
+      "executable": "/System/Applications/Utilities/Terminal.app/Contents/macOS/Terminal",
+      "name": "",
+      "platforms": {
+        "darwin": true
+      },
+      "restoreHistory": true,
+      "successExitCodes": [
+        "0",
+        "SIGINT",
+        "SIGTERM"
+      ],
+      "terminalOptions": {},
+      "type": "external"
     },
     "developerConsole": {
       "name": "",

@@ -16,7 +16,7 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 
 # UDA Overview Presentation
 ## IMAS UDA workshop, ITER
-### Jonathan Hollocombe, November 2023
+#### Jonathan Hollocombe, November 2023
 
 ---
 ## Contents
@@ -29,7 +29,7 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - Plugins 
 
 ---
-## UDA - History & Philosophy
+## UDA — History & Philosophy
 
 - Created for MAST to abstract away change from IDA3 (custom binary format) to NetCDF4
 - Also to allow interaction between 32bit and 64bit machines
@@ -38,22 +38,22 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - Coupling of network data transport with extensible server plugins makes it useful for interfacing with IMAS for remote data access
 
 ---
-## UDA - Design
+## UDA — Design
 
 ![[images/UDA.svg|1000]]
 
 ---
-## UDA - Design (Server)
+## UDA — Design (Server)
 
 ![[UDA Server.svg|700]]
 
 ---
-## UDA - Design (Client)
+## UDA — Design (Client)
 
 ![[UDA Client.svg|400]]
 
 ---
-## UDA - Server Architecture
+## UDA — Server Architecture
 
 - Plugins loaded based on Plugins.conf
 - Requests are received as Signal & Source
@@ -62,7 +62,7 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - Data is serialised and returned to client
 
 ---
-## UDA - udaPlugins.conf
+## UDA — udaPlugins.conf
 
 `NAME, TYPE, FUNC, LIB_NAME, CONFIG, DESC, EXAMPLE`
 
@@ -79,7 +79,7 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - `EXAMPLE` - an example of calling the plugin
 
 ---
-## UDA - udaPlugins.conf Example
+## UDA — udaPlugins.conf Example
 
 ```text
 BYTES, function, bytesPlugin, libbytes_plugin.dylib, *, 1, 1, 1, data reader to access files as a block of bytes without interpretation, BYTES::read()  
@@ -95,15 +95,15 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 </grid>
 
 ---
-## UDA - Request Processing
+## UDA — Request Processing
 
 - Client sends request to server:
 	- `signal` - what to read
 	- `source` - where to read it from
 - A metadata database can be used to perform name aliasing
 	- e.g. for MAST-U we map
-		- signal name `ip` -> `AMC_PLASMA_CURRENT`
-		- source `30420` -> `$MAST_DATA/30420/LATEST/amc_30420.nc`
+		- signal name `ip` ⇒ `AMC_PLASMA_CURRENT`
+		- source `30420` ⇒ `$MAST_DATA/30420/LATEST/amc_30420.nc`
 	- Metadata lookup is not covered in this workshop but more details can be provided on request
 - For direct plugin requests only the signal argument is needed
 	- Example:
@@ -111,7 +111,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 		- source = ""
 
 ---
-## UDA - Request Processing (cont.)
+## UDA — Request Processing (cont.)
 
 - A plugin request looks like:
 	- `PLUGIN::FUNCTION(ARGS)`
@@ -124,7 +124,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 		- `PLUGIN::FUNC(foo=1;2;3)` - parsing list arg
 
 ---
-## UDA - Batch Requests
+## UDA — Batch Requests
 
 - Multiple requests can be sent to the UDA server at one time
 - Each request is processed by the server and passed to a plugin
@@ -132,7 +132,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 - Batch requests reduce TCP round-trip overhead and can help with plugin call times
 
 ---
-## UDA - Plugins
+## UDA — Plugins
 
 - The UDA plugins is where most of the work is done in the server
 - The plugins responsibility is to handle the request parsed from the server and return data back
@@ -141,7 +141,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 - More details will be provided in the plugin workshop
 
 ---
-### UDA - Plugins - Entry Function
+### UDA — Plugins - Entry Function
 
 - The UDA plugin entry function has the following form:
 
@@ -155,7 +155,7 @@ where:
 - The return value should be `0` for success or non-`0` for an error state
 
 ---
-### UDA - Plugins - Basic Structure
+### UDA — Plugins — Basic Structure
 
 ```C
 int entryFunction(IDAM_PLUGIN_INTERFACE* plugin_interface)
@@ -174,7 +174,7 @@ int entryFunction(IDAM_PLUGIN_INTERFACE* plugin_interface)
 - Function name passed to `udaFunctionCalled` is case-insensitive
 
 ---
-### UDA - Plugins - Basic Structure (cont.)
+### UDA — Plugins — Basic Structure (cont.)
 
 ```C
 ...
@@ -192,7 +192,7 @@ if (!init
 - Multiple names can be checked if passed to `udaFunctionCalled` separated by `|` character
 
 ---
-### UDA - Plugins - Basic Structure (cont.)
+### UDA — Plugins — Basic Structure (cont.)
 
 ```C
 ...
@@ -210,7 +210,7 @@ if (udaFunctionCalled(plugin_interface, "help")
 ```
 
 ---
-### UDA - Plugins - Default Plugins
+### UDA — Plugins — Default Plugins
 
 - `bytes` - a plugin for returning files back as raw bytes, useful if no other access plugins are available
 - `hdf5` - a plugin for reading HDF5 files
@@ -221,7 +221,7 @@ if (udaFunctionCalled(plugin_interface, "help")
 - `viewport` - a plugin to reshape data to fit in a fixed viewport
 
 ---
-### UDA - Plugins - Examples
+### UDA — Plugins — Examples
 
 __HELP:__
 ```text
@@ -240,7 +240,7 @@ __BYTES__:
 BYTES::read(path=...)
 ```
 ---
-## UDA - Serialisation
+## UDA — Serialisation
 
 - Data is returned from the server to the client via the `DATA_BLOCK` structure
 	- Available on the plugin interface as<br>
@@ -248,7 +248,7 @@ BYTES::read(path=...)
 - This data block contains space for the data, metadata & dimensions
 
 ---
-### UDA - Serialisation - Data Block
+### UDA — Serialisation — Data Block
 
 ```C
 typedef struct DataBlock {  
@@ -270,7 +270,7 @@ typedef struct DataBlock {
 Note\: Not the full DataBlock, only showing the relevant fields for plugin development.
 
 ---
-### UDA - Serialisation - Dims Block
+### UDA — Serialisation — Dims Block
 
 ```C
 typedef struct Dims {  
@@ -285,7 +285,7 @@ typedef struct Dims {
 ```
 
 ---
-### UDA - Serialisation - Data Types
+### UDA — Serialisation — Data Types
 
 ```C
 typedef enum UdaType {  
@@ -317,14 +317,14 @@ typedef enum UdaType {
 ```
 
 ---
-### UDA - Serialisation - Cap'n'Proto Serialisation
+### UDA — Serialisation — Cap'n'Proto Serialisation
 
 ![[Capnp Tree.svg|800]]
 
 - As an alternative of writing array data to the DataBlock you can instead write the data in a structure tree and then serialise that tree using Cap'n'Proto, returning the serialised buffer
 
 ---
-### UDA - Serialisation - Cap'n'Proto Example
+### UDA — Serialisation — Cap'n'Proto Example
 
 ```C++
 auto tree = uda_capnp_new_tree();  
