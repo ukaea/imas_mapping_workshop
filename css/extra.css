@@ -68,3 +68,21 @@ div.slide-number {
 .reveal img {
   border-color: #002F55 !important;
 }
+
+.reveal section img.licence {
+  position: absolute;
+  left: 100%;
+  top: 90%;
+  border: none;
+}
+
+.reveal section img.shield {
+  position: absolute;
+  left: -20%;
+  top: 0%;
+  border: none;
+}
+
+.reveal ul ul {
+  font-size: 0.9em;
+}
