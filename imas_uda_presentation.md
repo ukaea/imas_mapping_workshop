@@ -12,11 +12,6 @@ css:
   - css/extra.css
 defaultTemplate: "[[tpl-ukaea-slide]]"
 ---
-<!-- slide template="[[tpl-ukaea-title]]" -->
-
-# IMAS UDA presentation
-## IMAS UDA workshop, ITER
-#### Jonathan Hollocombe, November 2023
 
 ---
 ## Contents

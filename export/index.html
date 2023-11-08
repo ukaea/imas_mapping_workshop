@@ -1,19 +1,63 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
+            html {
+                height: 100%;
+            }
             body {
-                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                height: 100%;
+                font-family:'Roboto', sans-serif;
+                background-color: #002F55;
+                background-image: url("jet.png");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+            h1 {
+                padding-top: 0.5em;
+                color: #002F55;
+            }
+            div.container {
+                background-color: #FFFFFFDD;
+                height: 100%;
+            }
+            div.card {
+                color: white;
+                padding: 1em;
+                background: #002F55;
+                margin-top: 2px;
+            }
+            li a {
+                color: #9091b3;
             }
         </style>
     </head>
 <body>
 
+<div class="container">
     <h1>ITER mapping workshop</h1>
-    <ul>
-        <li><a href="imas_uda_presentation/index.html">IMAS UDA Presentation</a></li>
-        <li><a href="overview_presentation/index.html">Overview Presentation</a></li>
-    </ul>
+    <div class="card">
+        <h2>Day 1</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><i class="fa-solid fa-person-chalkboard"></i>&nbsp;<a href="imas_uda_presentation/index.html">IMAS UDA Presentation</a></li>
+            <li class="list-group-item"><i class="fa-solid fa-person-chalkboard"></i>&nbsp;<a href="overview_presentation/index.html">Overview Presentation</a></li>
+            <li class="list-group-item"><i class="fa-solid fa-person-chalkboard"></i>&nbsp;Installation Hands-On</li>
+            <li class="list-group-item"><i class="fa-solid fa-person-chalkboard"></i>&nbsp;IMAS UDA Hands-On</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h2>Day 2</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><i class="fa-solid fa-person-chalkboard"></i>&nbsp;JSON Mapping Plugin Presentation</li>
+            <li class="list-group-item"><i class="fa-solid fa-person-chalkboard"></i>&nbsp;MASTU Mapping Presentation</li>
+            <li class="list-group-item"><i class="fa-solid fa-person-chalkboard"></i>&nbsp;JSON Mappings Hands-On</li>
+            <li class="list-group-item"><i class="fa-solid fa-person-chalkboard"></i>&nbsp;Mapping Plugin Hands-On</li>
+        </ul>
+    </div>
+</div>
 
 </body>
 </html>

@@ -12,6 +12,14 @@ css:
   - css/extra.css
 defaultTemplate: "[[tpl-ukaea-slide]]"
 ---
+<!-- slide template="[[tpl-ukaea-title]]" -->
+
+# Installation Hands-On
+## IMAS UDA workshop, ITER
+#### Jonathan Hollocombe, November 2023
+
+---
+## Contents
 
 - Install dependencies
 - Git clone
@@ -31,7 +39,6 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - Debugging a server
 
 ---
-
 # UDA installation workshop
 
 This workshop will cover
@@ -44,13 +51,11 @@ This workshop will cover
 - Debugging (time depending)
 
 ---
-
 ## UDA dependencies
 
 Install dependencies
 
 ---
-
 ## Clone UDA
 
 Clone UDA git repo
