@@ -53,23 +53,23 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ---
 ## Schedule (Day 1)
 
-| Name | Type | Day | Description |
-| -----|-------| ----| ------------|
-| UDA Overview | Presentation | 1 | Detailing how UDA works to provide context for it's use in IMAS |
-| UDA Installation | Hands-On | 1 | Covering installing and configuring a UDA server, plugin installation, and basic UDA usage |
-| IMAS UDA | Presentation |  1 | Detailing how UDA is used in IMAS remote data access and experimental data mapping |
-| IMAS UDA | Hands-On | 1 | Using IMAS to get data using UDA from IMAS data files and mapped data |
+| Name | Type | Description |
+| -----|-------| ------------|
+| UDA Overview | Presentation | Detailing how UDA works to provide context for it's use in IMAS |
+| UDA Installation | Hands-On | Covering installing and configuring a UDA server, plugin installation, and basic UDA usage |
+| IMAS UDA | Presentation |  Detailing how UDA is used in IMAS remote data access and experimental data mapping |
+| IMAS UDA | Hands-On | Using IMAS to get data using UDA from IMAS data files and mapped data |
 
 
 ---
 ## Schedule (Day 2)
 
-| Name | Type | Day | Description |
-| -----|-------| ----| ------------|
-| Mappings | Presentation | 2 | ... |
-| Mappings | Hands-On | 2 | ... |
-| MASTU Mapping | Presentation | 2 | ... |
-| Data Access Plugin | Hands-On | 2 | ... |
+| Name | Type | Description |
+| -----|-------| ------------|
+| Mappings | Presentation | ... |
+| Mappings | Hands-On | ... |
+| MASTU Mapping | Presentation | ... |
+| Data Access Plugin | Hands-On | ... |
 
 ---
 ## Workshop Prerequisites
