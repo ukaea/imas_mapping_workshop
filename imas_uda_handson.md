@@ -1,6 +1,6 @@
 ---
 theme: css/robot-lung.css
-transition: convex
+transition: none
 width: "1024"
 height: "800"
 maxScale: "4"

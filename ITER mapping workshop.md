@@ -9,5 +9,10 @@
 
 - [ ] Convert presentations into LaTeX
 - [ ] Add GitHub action to build presentations
-- [ ] Publish presentations on GitHub pages
+- [x] Publish presentations on GitHub pages
+- [ ] Add links to source code
+- [ ] Add intro presentation covering what UDA is & motivation
+- [ ] Remove rotating slide transition
+- [ ] Add details of IMAS plugin calling mapping plugin
+- [ ] Adding motivating examples to slides
 

@@ -1,0 +1,105 @@
+html {
+  counter-reset: task;
+}
+
+div.slide-number {
+  color: #9091b3 !important;
+  background: white !important;
+  left: 55px !important;
+  bottom: 15px !important;
+  font-size: 1.5em !important;
+  width: 1.2em !important;
+  text-align: right !important;
+}
+
+.reveal code {
+  font-family: 'Monaco', monospace;
+}
+
+.reveal code.hljs {
+  font-size: 1.3em;
+  font-family: 'Monaco', monospace;
+  line-height: 1.3em;
+}
+
+.reveal li {
+  margin-bottom: 0.3em;
+}
+
+.reveal .slide-number:has(a[href="#/"]) {
+  display: none !important;
+}
+
+.reveal h1 {
+	color: white;
+	font-size: 1.6em;
+}
+
+.reveal h2 {
+	color: #9091b3;
+	font-size: 1.4em;
+	text-transform: none;
+}
+
+.reveal h3 {
+	color: #9091b3;
+	font-size: 1.2em;
+	text-transform: none;
+}
+
+.reveal h4 {
+	color: #9091b3;
+	font-size: 0.8em;
+	text-transform: none;
+}
+
+.reveal pre code {
+  background-color: #002F55;
+}
+
+.reveal blockquote {
+  width: auto;
+  font-style: normal;
+  background-color: #002F55;
+  color: white;
+}
+
+.reveal blockquote p::before {
+  content: 'Note: ';
+  font-weight: bold;
+}
+
+.reveal img {
+  border-color: #002F55 !important;
+}
+
+.reveal section img.licence {
+  position: absolute;
+  left: 100%;
+  top: 90%;
+  border: none;
+}
+
+.reveal section img.shield {
+  position: absolute;
+  left: -20%;
+  top: 0%;
+  border: none;
+}
+
+.reveal ul ul {
+  font-size: 0.9em;
+}
+
+div.task {
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  visibility: hidden;
+}
+
+div.task::before {
+  visibility: visible;
+  counter-increment: task;
+  content: "Task #" counter(task);
+}
