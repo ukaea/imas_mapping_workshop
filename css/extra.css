@@ -22,6 +22,10 @@ div.slide-number {
   line-height: 1.3em;
 }
 
+.reveal ul {
+  max-width: 80%;
+}
+
 .reveal li {
   margin-bottom: 0.3em;
 }
@@ -32,18 +36,18 @@ div.slide-number {
 
 .reveal h1 {
 	color: white;
-	font-size: 1.6em;
+	font-size: 2em;
 }
 
 .reveal h2 {
 	color: #9091b3;
-	font-size: 1.4em;
+	font-size: 1.6em;
 	text-transform: none;
 }
 
 .reveal h3 {
 	color: #9091b3;
-	font-size: 1.2em;
+	font-size: 1.4em;
 	text-transform: none;
 }
 
@@ -53,8 +57,16 @@ div.slide-number {
 	text-transform: none;
 }
 
+.reveal pre {
+  width: 80%;
+  margin-bottom: 3em;
+}
+
 .reveal pre code {
   background-color: #002F55;
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .reveal blockquote {
@@ -93,7 +105,7 @@ div.slide-number {
 
 div.task {
   font-weight: bold;
-  width: 100%;
+  width: 80%;
   text-align: left;
   visibility: hidden;
 }

@@ -1,8 +1,8 @@
 ---
 theme: css/robot-lung.css
 transition: none
-width: "1024"
-height: "800"
+width: "1920"
+height: "1080"
 maxScale: "4"
 controls: true
 progress: true
@@ -39,7 +39,7 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - Debugging a server
 
 ---
-# UDA installation workshop
+## UDA installation workshop
 
 This workshop will cover
 
@@ -49,6 +49,14 @@ This workshop will cover
 - Installing plugins
 - SSL authentication
 - Debugging (time depending)
+
+---
+## Workshop format
+
+- Each section will have some technical details
+- Any hands-on exercises will be marked with __Task__
+- We will stop at each task to let people complete them
+- Please ask questions as we go
 
 ---
 ## UDA dependencies
@@ -210,8 +218,11 @@ etc/
   DebugServer.log   Debug logging for the server
   Error.log         Error logging for the server
   Access.log        Access logging for the server
+  server.log        Any outputs written by the configuration scripts
+  startup.log       Anything written by the server before XDR streams are created
 ```
 
+- Last 2 are there to protect against anything breaking the server by writing to stdout
 ---
 ### DebugServer.log
 
@@ -292,38 +303,208 @@ touch <TODO>.cfg
 ---
 ## Running a test server
 
+<div class="task">
+Task
+</div>
+
 ```bash
 ./rc.uda start
 ```
 
+- The `rc.uda` script launches a `xinetd` service in user space. In production you would use the system `xinetd` but for testing and development it is easier to do it this way.
+- To see the status of the service run:
+
+<div class="task">
+Task
+</div>
+
+```bash
+./rc.uda status
+```
+---
+### Running a test server (cont.)
+
+- In the `etc/` directory you will also now see:
+
+```text
+mylog.<MACHINE>.local        - xinetd service log file
+xinetd.<MACHINE>.local.pid   - file containing the pid of the local service
+```
+
+---
+## Xinetd configuration
+
+```text
+service uda  
+{  
+    disable         = no
+    flags           = IPv4 NOLIBWRAP KEEPALIVE NODELAY
+    type            = UNLISTED
+    protocol        = tcp
+    port            = 56565 
+    socket_type     = stream
+    wait            = no
+    user            = jhollocombe
+    server          = /Users/jhollocombe/CLionProjects/UDA/etc/udaserver.sh
+  
+    instances       = 100
+    per_source      = 30
+  
+    v6only          = no
+    groups          = yes
+    umask           = 002
+  
+    log_type        = FILE /Users/jhollocombe/CLionProjects/UDA/etc/xinetd.logfile
+    log_on_success  += DURATION USERID
+    log_on_failure  += USERID
+}
+```
+- `port` specifies the port to run on, UDA runs on 56565 by convention
+- `user` is the user under which the server is run
+- `server` is the server script to execute
+- `instances` and `per_source` are DDOS protection options
+- `log_` options specify where and what to log from xinetd
+
+
 ---
 ## Test the connection
 
+<div class="task">
+Task
+</div>
+
 ```bash
-telnet localhost 56565
+nc -zv localhost 56565
+```
+
+- This tests that the socket is open and receiving connections
+
+<div class="task">
+Task
+</div>
+
+```bash
+uda_cli -h localhost -p 56565 "help::help()"
+```
+
+- Runs a simple plugin request against the server
+
+```text
+request: help::help()
+
+Help    List of HELP plugin functions:
+
+services()      Returns a list of available services with descriptions
+ping()          Return the Local Server Time in seconds and microseonds
+servertime()    Return the Local Server Time in seconds and microseonds
 ```
 
 ---
 ## Running test suite
 
+<div class="task">
+Task
+</div>
+
 ```bash
-./test_testplugins
+cd build/test/plugins
+./plugin_test_testplugin
+```
+
+```text
+===============================================================================
+All tests passed (1108166 assertions in 48 test cases)
 ```
 
 ---
 ## Installing plugins
 
-- Install plugin repo
-- Config
-- Build 
-- Install
-- `./activate-plugins.sh`
+- Plugins are built against an installed UDA server
+- Steps to install a plugin:
+	- Clone the plugin repo
+	- Configure, build & install
+	- Add the plugin to the servers `udaPlugins.conf`
+
+- For the ITER plugins we use CMake to configure the build and generate an `activate-plugins.sh` script to handle the last step
+
+---
+## Installing plugins &#8212; clone
+
+<div class="task">
+Task
+</div>
+
+```bash
+git clone https://git.iter.org/scm/imas/uda-plugins.git
+cd uda-plugins
+```
+
+---
+## Installing plugins &#8212; configure
+
+<div class="task">
+Task
+</div>
+
+```bash
+export PKG_CONFIG_PATH=$HOME/uda/install/lib/pkgconfig
+cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DBUILD_PLUGINS=imas -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
+```
+
+- The `PKG_CONFIG_PATH` environmental variable let `pkg-config` know where to find UDA
+- The `BUILD_PLUGINS` CMake option specifies which plugins in the repo we want to build &#8212; for remote and mapped data for AL5 we only need the `IMAS` plugin
+
+
+<div class="task">
+Task
+</div>
+
+```bash
+cmake --build build/
+cmake --install build/
+```
+
+---
+## Installing plugins &#8212; activate
+
+<div class="task">
+Task
+</div>
+
+```bash
+./build/scripts/activate-plugins.sh
+```
+
+```bash
+#!/bin/bash  
+  
+UDA_HOME=/home/test/uda/install
+PLUGINS_HOME=/home/test/uda/install
+  
+for PLUGIN in IMAS
+do  
+    $UDA_HOME/bin/install_plugin -u $PLUGINS_HOME install $PLUGIN  
+done
+```
+
+- The generated `activate-plugins.sh` script calls the `install_plugin` helper script installed with UDA for each plugin being built
+- The `install_plugin` script takes the plugin configuration line for the plugin, found in the `udaPlugins_<PLUGIN_NAME>.conf` and copies it into the servers `udaPlugins.conf`
 
 ---
 ## Testing plugins
 
+<div class="task">
+Task
+</div>
+
 ```
 uda_cli -h locahost -p 56565 "IMAS::help()"
+```
+
+- Runs the help function on the `IMAS` plugin &#8212; demonstrates that the plugin is installed and functioning
+
+```text
+... output ...
 ```
 
 ---
@@ -339,6 +520,16 @@ uda_cli -h locahost -p 56565 "IMAS::help()"
 - Client keys
 - Environmental vars
 - Calling server
+
+---
+## Installing a production server
+
+```bash
+cp xinetd.conf /etc/xinetd.d/uda
+service xinetd restart
+```
+
+- The service name (`uda` above) can be anything you like and there might be more than 1 if you have multiple services running (i.e. `uda-internal` and `uda-external`)
 
 ---
 ## Debugging
