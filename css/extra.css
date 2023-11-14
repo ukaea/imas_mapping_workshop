@@ -107,11 +107,11 @@ div.task {
   font-weight: bold;
   width: 80%;
   text-align: left;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
-div.task::before {
+/* div.task::before {
   visibility: visible;
   counter-increment: task;
   content: "Task #" counter(task);
-}
+} */

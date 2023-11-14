@@ -14,48 +14,36 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ---
 <!-- slide template="[[tpl-ukaea-title]]" -->
 
-# Installation Hands-On
-## IMAS UDA workshop, ITER
-#### Jonathan Hollocombe, November 2023
+## IMAS UDA Workshop
+# IMAS-UDA Hands-On
+#### _<u>Jonathan Hollocombe</u>, Adam Parker, Stephen Dixon_ <br> November 20, 2023 &#8212; ITER
+
+---
+## Overview
+
+- This hands-on will cover how to install & configure UDA
+- It will then cover how to use UDA as part of IMAS
+- It will be split into 2 sessions depending on how much material we get through in the time
+- If time permits additional topics can be covered such as SSL, debugging, etc.
+	- If not the material will be available for offline exercises
 
 ---
 ## Contents
 
-- Install dependencies
-- Git clone
-- CMake config
-- Build
-- Install
-- Installing pyuda
-- Configure server
-	- machine.d
-- Test connection
-	- Telnet (or nc -zv)
-	- uda_cli
-- Running tests
-- Installing plugins
-- Test plugin calls
-- SSL authentication
-- Debugging a server
-
----
-## UDA installation workshop
-
-This workshop will cover
-
-- Building and installation of UDA
-- Configuring a UDA server
-- Testing UDA server connection
-- Installing plugins
-- SSL authentication
-- Debugging (time depending)
+- Installing and configuring a UDA server
+- Using UDA CLI & pyuda
+- Building and installing plugins
+- Using UDA in IMAS
+- Configuring UDA SSL
+- Debugging UDA using gdb
+- Installing UDA production server
 
 ---
 ## Workshop format
 
 - Each section will have some technical details
-- Any hands-on exercises will be marked with __Task__
-- We will stop at each task to let people complete them
+- Any hands-on exercises will be marked with __Task \#N__
+- We will stop at each task to let people complete them before moving on
 - Please ask questions as we go
 
 ---
@@ -80,7 +68,7 @@ This workshop will cover
 ## Install dependencies
 
 ```bash
-RUN apt-get update && apt-get install -y \  
+apt-get update && apt-get install -y \  
     git \  
     libboost-dev \  
     libboost-program-options-dev \  
@@ -98,11 +86,13 @@ RUN apt-get update && apt-get install -y \
     python3-venv
 ```
 
+- These dependencies have already been installed on the VMs
+
 ---
 ## Clone UDA
 
 <div class="task">
-Task
+Task #1: Clone UDA
 </div>
 
 ```bash
@@ -117,7 +107,7 @@ cd uda
 ## CMake configuration
 
 <div class="task">
-Task
+Task #2: Configure CMake
 </div>
 
 ```bash
@@ -140,7 +130,7 @@ cmake -G Ninja -B build \
 ## Build
 
 <div class="task">
-Task
+Task #3: Build UDA
 </div>
 
 ```bash
@@ -153,7 +143,7 @@ cmake --build build/
 ## Install
 
 <div class="task">
-Task
+Task #4: Install UDA
 </div>
 
 ```bash
@@ -164,6 +154,7 @@ cmake --install build/
 - If `CMAKE_INSTALL_PREFIX` is not specified it will try and install in the standard system path, i.e. `/usr/local` on Linux.
 
 ---
+## Installed files
 
 - You should now have in the install directory:
 
@@ -200,7 +191,7 @@ xinetd.conf           Xinetd options for running the server
 ## Checking the server
 
 <div class="task">
-Task
+Task #5: Test UDA server script
 </div>
 
 ```bash
@@ -226,7 +217,7 @@ etc/
 ---
 ### DebugServer.log
 
-Inside the DebugServer.log you should see:
+Inside the `DebugServer.log` you should see:
 
 ```text
 2023:11:10T09:29:53.446219Z, getServerEnvironment.cpp:12 >> Server Environment Variable values  
@@ -277,7 +268,7 @@ etc/machine.d/
 - Create a new configuration file to match the name of the VM:
 
 <div class="task">
-Task
+Task #6: Create machine configuration file
 </div>
 
 ```bash
@@ -304,7 +295,7 @@ touch <TODO>.cfg
 ## Running a test server
 
 <div class="task">
-Task
+Task #7: Start server
 </div>
 
 ```bash
@@ -315,7 +306,7 @@ Task
 - To see the status of the service run:
 
 <div class="task">
-Task
+Task #8: Check server status
 </div>
 
 ```bash
@@ -370,7 +361,7 @@ service uda
 ## Test the connection
 
 <div class="task">
-Task
+Task #9: Check server socket connection
 </div>
 
 ```bash
@@ -380,7 +371,7 @@ nc -zv localhost 56565
 - This tests that the socket is open and receiving connections
 
 <div class="task">
-Task
+Task #10: Use UDA CLI to test server
 </div>
 
 ```bash
@@ -400,16 +391,23 @@ servertime()    Return the Local Server Time in seconds and microseonds
 ```
 
 ---
+## UDA CLI
+
+- TODO: Add details of UDA CLI
+
+---
 ## Running test suite
 
 <div class="task">
-Task
+Task #11: Run UDA tests
 </div>
 
 ```bash
 cd build/test/plugins
 ./plugin_test_testplugin
 ```
+
+- Expected output:
 
 ```text
 ===============================================================================
@@ -431,7 +429,7 @@ All tests passed (1108166 assertions in 48 test cases)
 ## Installing plugins &#8212; clone
 
 <div class="task">
-Task
+Task #12: Clone plugins repo
 </div>
 
 ```bash
@@ -443,20 +441,21 @@ cd uda-plugins
 ## Installing plugins &#8212; configure
 
 <div class="task">
-Task
+Task #13: Configure plugins
 </div>
 
 ```bash
-export PKG_CONFIG_PATH=$HOME/uda/install/lib/pkgconfig
+export PKG_CONFIG_PATH=$HOME/uda/install/lib/pkgconfig;/usr/local/imas/lib/pkgconfig
 cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DBUILD_PLUGINS=imas -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
 ```
 
-- The `PKG_CONFIG_PATH` environmental variable let `pkg-config` know where to find UDA
+- The `PKG_CONFIG_PATH` environmental variable let `pkg-config` know where to find UDA & IMAS
 - The `BUILD_PLUGINS` CMake option specifies which plugins in the repo we want to build &#8212; for remote and mapped data for AL5 we only need the `IMAS` plugin
+- `CMAKE_INSTALL_PREFIX` sets where to install the plugins &#8212;  usually set to the UDA server installation directory
 
 
 <div class="task">
-Task
+Task #14: Build and install plugins
 </div>
 
 ```bash
@@ -467,13 +466,8 @@ cmake --install build/
 ---
 ## Installing plugins &#8212; activate
 
-<div class="task">
-Task
-</div>
-
-```bash
-./build/scripts/activate-plugins.sh
-```
+- The generated `build/scripts/activate-plugins.sh` script calls the `install_plugin` helper script installed with UDA for each plugin being built
+- The `install_plugin` script takes the plugin configuration line for the plugin, found in the `udaPlugins_<PLUGIN_NAME>.conf` and copies it into the servers `udaPlugins.conf`
 
 ```bash
 #!/bin/bash  
@@ -487,18 +481,24 @@ do
 done
 ```
 
-- The generated `activate-plugins.sh` script calls the `install_plugin` helper script installed with UDA for each plugin being built
-- The `install_plugin` script takes the plugin configuration line for the plugin, found in the `udaPlugins_<PLUGIN_NAME>.conf` and copies it into the servers `udaPlugins.conf`
+
+<div class="task">
+Task #15: Activate plugins
+</div>
+
+```bash
+./build/scripts/activate-plugins.sh
+```
 
 ---
 ## Testing plugins
 
 <div class="task">
-Task
+Task #16: Test plugin with UDA CLI
 </div>
 
-```
-uda_cli -h locahost -p 56565 "IMAS::help()"
+```bash
+uda_cli -h localhost -p 56565 "IMAS::help()"
 ```
 
 - Runs the help function on the `IMAS` plugin &#8212; demonstrates that the plugin is installed and functioning
@@ -508,21 +508,146 @@ uda_cli -h locahost -p 56565 "IMAS::help()"
 ```
 
 ---
-## SSL authentication
+## Calling IMAS plugin
 
-- Building with SSL
-- Server keys
-- SSL environmental vars
+<div class="task">
+Task #17: Opening IMAS data using plugin directly
+</div>
+
+```bash
+uda_cli -h localhost -p 56565 "IMAS::open(...)"
+```
 
 ---
-### Using SSL client
+## Using UDA with (python) IMAS
 
-- Client keys
-- Environmental vars
-- Calling server
+<div class="task">
+Task #18: Opening remote data with IMAS
+</div>
+
+In `python3` run the following command:
+
+```python
+>>> import imas
+>>> entry = imas.DBEntry('imas://localhost:56565/uda?path=...&backend=hdf5', 'r')
+```
+
+<div class="task">
+Task #19: Getting data using IMAS
+</div>
+
+In the same `python3` session:
+
+```python
+>>> mag = entry.get('magnetics')
+>>> flux_loop = entry.partial_get('magnetics/flux_loop(3)')
+>>> eq_slice = entry.get_slice('equilibrium', time=0.1, ...)
+```
+
+---
+## Setting up SSL authenticated server
+
+<div class="task">
+Task #20: Copying server certificates
+</div>
+
+```bash
+mkdir $HOME/.uda/
+cp <keys>/* $HOME/.uda/
+```
+
+<div class="task">
+Task #21: Configuring UDA server for SSL
+</div>
+
+```bash
+export UDA_SERVER_SSL_AUTHENTICATE=1
+export UDA_SERVER_SSL_CERT=...
+export UDA_SERVER_SSL_KEY=...
+export UDA_SERVER_CA_SSL_CERT=...
+export UDA_SERVER_CA_SSL_CRL=...
+```
+
+---
+## SSL authenticated client
+
+<div class="task">
+Task #22: Configuring UDA client for SSL
+</div>
+
+```bash
+export UDA_CLIENT_SSL_AUTHENTICATE=1
+export UDA_CLIENT_SSL_CERT=...
+export UDA_CLIENT_SSL_KEY=...
+export UDA_CLIENT_CA_SSL_CERT=...
+```
+
+<div class="task">
+Task #23: Checking SSL connection
+</div>
+
+```bash
+uda_cli -h localhost -p 56565 "help::help()"
+```
+
+---
+## Debugging UDA
+
+<div class="task">
+Task #24: Breaking in UDA client
+</div>
+
+```bash
+gdb uda_cli -h localhost -p 56565 "help::help()"
+break udaClient.cpp:743
+run
+```
+
+---
+## Debugging UDA &#8212; server
+
+<div class="task">
+Task #25: Find pid of UDA server
+</div>
+
+```bash
+ps -fe | uda_server
+```
+
+<div class="task">
+Task #26: Hook gdb onto running server
+</div>
+
+```bash
+gdb -p <PID>
+```
+
+<div class="task">
+Task #27: Breaking in plugin
+</div>
+
+```bash
+break help_plugin.cpp:66
+cont
+```
+
+---
+## Debugging UDA &#8212; client
+
+<div class="task">
+Task #28: Continue client
+</div>
+
+```
+cont
+```
 
 ---
 ## Installing a production server
+
+<div class="task">
+Task #29: Copy xinetd configuration
+</div>
 
 ```bash
 cp xinetd.conf /etc/xinetd.d/uda
@@ -532,17 +657,11 @@ service xinetd restart
 - The service name (`uda` above) can be anything you like and there might be more than 1 if you have multiple services running (i.e. `uda-internal` and `uda-external`)
 
 ---
-## Debugging
-
-- Client-server debugging
-- Breakpointing client
-- Finding server instance
-- Hooking debugger onto server
-- Breakpoint plugin
-- Running to breakpoint
-
----
 ## Installing pyuda
+
+<div class="task">
+Task #30: Install pyuda
+</div>
 
 ```bash
 cd

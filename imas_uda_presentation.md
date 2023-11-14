@@ -14,9 +14,9 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ---
 <!-- slide template="[[tpl-ukaea-title]]" -->
 
-# IMAS UDA presentation
-## IMAS UDA workshop, ITER
-#### Jonathan Hollocombe, November 2023
+## IMAS UDA Workshop
+# IMAS UDA Presentation
+#### _<u>Jonathan Hollocombe</u>, Adam Parker, Stephen Dixon_ <br> November 20, 2023 &#8212; ITER
 
 ---
 ## Contents
