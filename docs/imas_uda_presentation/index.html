@@ -86,20 +86,25 @@
   <body>
     <div class="reveal">
       <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_title.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-<div class="" style="padding: -10 0 0 0; box-sizing: border-box; position: absolute; left: -15%; top: 65%; height: 25%; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+<img class="licence" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+
+<div class="" style="padding: -10 0 0 0; box-sizing: border-box; position: absolute; left: 5%; top: 65%; height: 25%; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
 
 
 
 
-# IMAS UDA presentation
-## IMAS UDA workshop, ITER
-#### Jonathan Hollocombe, November 2023
+## IMAS UDA Workshop
+# IMAS UDA Presentation
+#### _<u>Jonathan Hollocombe</u>, Adam Parker, Stephen Dixon_ <br> November 20, 2023 &#8212; ITER
 
 </div>
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Contents
 
@@ -109,7 +114,10 @@
 - UDA IMAS plugin
 - JSON mapping plugin
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Background
 
@@ -119,7 +127,10 @@
 	- Remote URI:<br> `imas://<server>:<port>/uda?path=<path>&backend=<backend>`
 - New `IMAS` plugin created for AL5 to handle requests coming from IMAS UDA-backend
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## IMAS Overview
 
@@ -130,25 +141,38 @@
 - The calls to the low-level library are constructed from the structure of the IDS as defined in the data dictionary — either code-generated or dynamically
 - The low-level maintains context for the call using `Context` objects and passes the calls through to the specified backend to do the interaction with the data file
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Low-level Overview
 
 <img src="images/IMAS low-level.svg" alt="" style="width: 1000px; object-fit: fill">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Low-level Backend Calls
 
 <img src="images/IMAS data flow.svg" alt="" style="width: 1000px; object-fit: fill">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
 
 ## UDA Backend
 
 <img src="images/IMAS remote data.svg" alt="" style="width: 1000px; object-fit: fill">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## UDA Backend
 
@@ -159,7 +183,10 @@
 	- `URI` is extracted from the `DataEntryContext` but converted from remote URI to local one, i.e. <br> `imas://server:port/uda?path=foo&backend=hdf5` ⇒ `imas:hdf5?path=foo`
 	- `MODE` is a string representation of the IMAS open mode integer, i.e. `OPEN_PULSE` ⇒ `"open"`
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Data pre-fetching
 
@@ -168,13 +195,19 @@
 - To avoid this we can pre-fetch the required data in the `beginAction` or `beginArraystructAction` functions
 - This requires the use of the data dictionary XML to generate the calls that will be called later from the high level access layer
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Data pre-fetching
 
 <img src="images/IMAS data prefetching.svg" alt="" style="width: 1000px; object-fit: fill">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## XML processing
 
@@ -183,7 +216,10 @@
 - We first have to request the IDS `ids_properties/homogeneous_flag` — this needs to be done before any other calls
 - We then walk the XML generating requests for each element — including attributes extracted from the XML such as data type and rank
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### XML processing — generated requests
 
@@ -207,7 +243,10 @@ ss << plugin_
 - Each request is generated with enough information that it can be called independently from previous request (`openPulse` etc.)
 - In this way it is shielded from server crashes, load-balancing etc.
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### XML processing — wild-card requests
 
@@ -217,14 +256,20 @@ ss << plugin_
 - This also works for multiple levels of structures such as `magnetics/flux_loop[:]/position[:]/r`, expanding to read all elements
 - This means that whilst `$N$` requests are sent to the server `$M$` elements are returned where `$M \gg N$`
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### XML processing — wild-card requests (cont.)
 
 - Each dynamically sized structure also has a size request which is simply that structure without the wild-card, i.e. `magnetics/flux_loop` will request the number of flux loops
 - The size data along with all the returned elements can be used to populate the correct number of structures in the returned IDS
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### XML processing — example
 
@@ -243,7 +288,10 @@ magnetics/flux_loop[:]/flux/time
 ...
 ```
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Data Fetching
 
@@ -253,7 +301,10 @@ magnetics/flux_loop[:]/flux/time
 	- The current default is 20 — this may change after performance studies
 	- 20 requests are likely to result in 100s of elements being returned due to the wild-card request expansion
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Data Fetching (cont.)
 
@@ -262,13 +313,20 @@ magnetics/flux_loop[:]/flux/time
 - For non wild-card requests there will be one data element per request but for wild-card requests there will be one data element per array-struct, and sub-array-struct, and so on
 - Only found data is returned, IMAS `null` values such as -999999999 for integers are not returned to avoid sending back many 'empty' nodes
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
 
 ### Data Fetching — Returned Data
 
 <img src="images/IMAS UDA returned data.svg" alt="" style="width: 1000px; object-fit: fill">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Data Caching
 
@@ -283,7 +341,10 @@ struct CacheData {
 
 - The returned data is unpacked and stored in a RAM cache using the above cache structure
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Data Loading
 
@@ -293,7 +354,10 @@ struct CacheData {
 - The cache value for the read is then cleared at this point to avoid duplicating the data in memory
 	- We have to copy the data on return as the returned IDS data object might outlive the UDA-backend, and hence the cache
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Partial Gets
 
@@ -302,14 +366,20 @@ struct CacheData {
 - If this path is set then we only perform the UDA request generation using the given node in the data dictionary
 	- I.e. for `partial_get('flux_loop(3)')` we only need to request <br> `flux_loop[3]/flux/data` <br> `flux_loop[3]/flux/time` <br> `flux_loop[3]/position` <br> `flux_loop[3]/position[:]/r` <br> `...`
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Get Slice
 
 - Handling of get slice doesn't require any changes as we already pass the range mode (`global` or `slice`) as well as the interpolation time and interpolation mode to the UDA IMAS plugin
 - These options are then passed to the backend reading the data which handles the slice read operation
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Occurrences
 
@@ -317,7 +387,10 @@ struct CacheData {
 - The only change required is to strip the occurrence number from the IDS before we look up the node in the XML
 - The IDS name with occurrence attached is passed to the UDA IMAS plugin to enable reading of the correct occurrence
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## UDA IMAS plugin
 
@@ -326,7 +399,10 @@ struct CacheData {
 
 - This section covers the functionality of the UDA IMAS plugin
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ## Function overview
 
@@ -335,7 +411,10 @@ struct CacheData {
 	- `close(uri, mode)`
 	- `get(uri, access, range, time, interp, path, datatype, rank, is_homogeneous, dynamic_flags)`
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Function overview — open
 
@@ -343,7 +422,10 @@ struct CacheData {
 	1. If the URI contains `machine` then all further calls are forwarded onto the mapping plugin responsible for the given machine (this case will be discussed in later session)
 	2. Otherwise uses the IMAS low-level library to find and open the IMAS pulse file(s) and caches the resultant `Context` handle for later use (i.e. in later `get` calls)
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Function overview — close
 
@@ -351,7 +433,10 @@ struct CacheData {
 	1. If the URI is for a mapped experiment nothing needs to be done
 	2. If the URI is for remote data access then the IMAS low-level is used to close the pulse file(s)
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Function overview — get
 
@@ -360,7 +445,10 @@ struct CacheData {
 1. If the given URI is not already open then call the open function to do this — this is so the IMAS plugin works even if the functions are called out of sequence (i.e. due to server crash or load balancing)
 2. The provided IMAS path is then split into tokens using `/` as the separator, i.e. <br> `magnetics/flux_loop[:]/flux/data` <br> ⇒ <br> `[magnetics, flux_loop[:], flux, data]`
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Function overview — get (remote data access)
 
@@ -369,7 +457,10 @@ struct CacheData {
 	- If the token is not an arraystruct we build the path of the element and use the IMAS low-level to read the data using the current `Context` objects
 4. The found array sizes and data are serialised using Cap'n'Proto and returned to the client on via the data block
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Function overview — get example
 
@@ -395,7 +486,10 @@ flux_loop[size-1] ArraystructContext
 { 'magnetics/flux_loop[size-1]/flux/data': [...] }
 ```
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Function overview — get (mapped data)
 
@@ -408,7 +502,10 @@ flux_loop[size-1] ArraystructContext
 	- `<args>` are any other args passed on the URI, i.e. `imas://server/uda?machine=MASTU&shot=30420&run=0` would make `<args>` = `"shot=30420, run=0"`
 1. All the data returned by the mapping plugin are serialised using Cap'n'Proto and returned to the client on via the data block
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Mapped data — plugin selection
 
@@ -416,7 +513,10 @@ flux_loop[size-1] ArraystructContext
 - The selection is done via a configuration file loaded when the IMAS plugin first initialises
 - The location of this configuration files is specified by the environmental variable `UDA_IMAS_MACHINE_MAP` via the server configuration
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Mapped data — plugin configuration file
 
@@ -427,7 +527,10 @@ flux_loop[size-1] ArraystructContext
 	- `PORT` is the server port to forward the request to, or `-` to call a plugin on the current server
 	- `PLUGIN_NAME` is the name of the plugin to call
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Mapped data — plugin configuration example
 
@@ -443,7 +546,10 @@ JET     *         uda.jet.uk 60000 JET_MAP
 
 > For most machines we hope that the `IMAS_JSON_MAP` plugin will be capable of handling your mapping requirements
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
 
 ### Mapped data — JSON mapping plugin
 
@@ -552,7 +658,7 @@ JET     *         uda.jet.uk 60000 JET_MAP
       // options from URL query string
       var queryOptions = Reveal().getQueryHash() || {};
 
-      var options = extend(defaultOptions, {"width":"1024","height":"800","margin":0.04,"maxScale":"4","controls":true,"progress":true,"slideNumber":true,"transition":"convex","transitionSpeed":"default"}, queryOptions);
+      var options = extend(defaultOptions, {"width":"1920","height":"1080","margin":0.04,"maxScale":"4","controls":true,"progress":true,"slideNumber":true,"transition":"none","transitionSpeed":"default"}, queryOptions);
     </script>
 
     <script>

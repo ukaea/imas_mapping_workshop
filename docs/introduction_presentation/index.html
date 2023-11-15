@@ -86,22 +86,22 @@
   <body>
     <div class="reveal">
       <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_title.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="licence" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
 
-<div class="" style="padding: -10 0 0 0; box-sizing: border-box; position: absolute; left: -15%; top: 65%; height: 25%; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+<div class="" style="padding: -10 0 0 0; box-sizing: border-box; position: absolute; left: 5%; top: 65%; height: 25%; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
 
 
 
 
+## IMAS UDA Workshop
 # Introduction
-## IMAS UDA workshop, ITER
-#### Jonathan Hollocombe, November 2023
+#### _<u>Jonathan Hollocombe</u>, Adam Parker, Stephen Dixon_ <br> November 20, 2023 &#8212; ITER
 
 </div>
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
@@ -112,7 +112,7 @@
 - Background
 - Schedule
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
@@ -124,7 +124,7 @@
 - At the end of this workshop you should have the knowledge of the basic building blocks needed to develop mappings for any machine
 - Future training and documentation can build on this knowledge for machine specific cases
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
@@ -137,7 +137,7 @@
 - Consists C/C++ client library which talks to a C/C++ server running behind xinetd
 - Several higher level language wrappers available, the most popular of which is pyuda &#8212; the Python wrapper
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
@@ -149,35 +149,35 @@
 - With release of AL5 and introduction of IMAS URIs UDA can now be used to read IMAS data files remotely
 - Building on the improved UDA backend and plugins for AL5 the JSON mapping plugin is designed to provide a better way to write and manage the mappings for multiple machines
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
 
 ## Schedule (Day 1)
 
-| Name | Type | Day | Description |
-| -----|-------| ----| ------------|
-| UDA Overview | Presentation | 1 | Detailing how UDA works to provide context for it's use in IMAS |
-| UDA Installation | Hands-On | 1 | Covering installing and configuring a UDA server, plugin installation, and basic UDA usage |
-| IMAS UDA | Presentation |  1 | Detailing how UDA is used in IMAS remote data access and experimental data mapping |
-| IMAS UDA | Hands-On | 1 | Using IMAS to get data using UDA from IMAS data files and mapped data |
+| Name | Type | Description |
+| -----|-------| ------------|
+| UDA Overview | Presentation | Detailing how UDA works to provide context for it's use in IMAS |
+| UDA Installation | Hands-On | Covering installing and configuring a UDA server, plugin installation, and basic UDA usage |
+| IMAS UDA | Presentation |  Detailing how UDA is used in IMAS remote data access and experimental data mapping |
+| IMAS UDA | Hands-On | Using IMAS to get data using UDA from IMAS data files and mapped data |
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
 
 ## Schedule (Day 2)
 
-| Name | Type | Day | Description |
-| -----|-------| ----| ------------|
-| Mappings | Presentation | 2 | ... |
-| Mappings | Hands-On | 2 | ... |
-| MASTU Mapping | Presentation | 2 | ... |
-| Data Access Plugin | Hands-On | 2 | ... |
+| Name | Type | Description |
+| -----|-------| ------------|
+| Mappings | Presentation | ... |
+| Mappings | Hands-On | ... |
+| MASTU Mapping | Presentation | ... |
+| Data Access Plugin | Hands-On | ... |
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
@@ -190,7 +190,7 @@ What we assume from attendees:<!-- .element: style="text-align: left; width: 90%
 - Some basic C/C++ & Python knowledge
 - Familiarity with Linux systems and command line usage
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
@@ -203,7 +203,7 @@ What we assume from attendees:<!-- .element: style="text-align: left; width: 90%
 - Adam & I will be available for on-site questions and will try and answer on-line questions when we can. Stephen will be provided on-line support to provide additional support.
 - Please use «live document» for all questions and discussions
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 800px; width: 1024px; min-height: 800px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
@@ -317,7 +317,7 @@ What we assume from attendees:<!-- .element: style="text-align: left; width: 90%
       // options from URL query string
       var queryOptions = Reveal().getQueryHash() || {};
 
-      var options = extend(defaultOptions, {"width":"1024","height":"800","margin":0.04,"maxScale":"4","controls":true,"progress":true,"slideNumber":true,"transition":"none","transitionSpeed":"default"}, queryOptions);
+      var options = extend(defaultOptions, {"width":"1920","height":"1080","margin":0.04,"maxScale":"4","controls":true,"progress":true,"slideNumber":true,"transition":"none","transitionSpeed":"default"}, queryOptions);
     </script>
 
     <script>
