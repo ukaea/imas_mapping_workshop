@@ -111,7 +111,7 @@ Task #2: Configure CMake
 </div>
 
 ```bash
-cmake -G Ninja -B build \  
+cmake -B build \  
 -DBUILD_SHARED_LIBS=ON \  
 -DCMAKE_BUILD_TYPE=Debug \  
 -DSSLAUTHENTICATION=ON \  
@@ -125,6 +125,7 @@ cmake -G Ninja -B build \
 - `SSLAUTHENTICATION` builds UDA with SSL support
 - `CLIENT_ONLY` specifies whether to only build client libraries
 - `ENABLE_CAPNP` builds UDA with Cap'n'Proto support
+- `CMAKE_INSTALL_PREFIX` specifies where to install UDA (defaults to `/usr/local`)
 
 ---
 ## Build
@@ -134,10 +135,11 @@ Task #3: Build UDA
 </div>
 
 ```bash
-cmake --build build/
+cmake --build build/ -j 2
 ```
 
 - Building via `cmake` avoids worrying about what generator has been used, i.e. running `make -C build/` vs `ninja -C build/`
+- The `-j` flags specifies the number of jobs to use for a parallel build
 
 ---
 ## Install
@@ -158,14 +160,15 @@ cmake --install build/
 
 - You should now have in the install directory:
 
-```text
-install/
-	bin/                   Contains the server and CLI binaries
-	etc/                   Contains all the server and plugin configuration files
-	include/               Contains the UDA headers
-	lib/                   Contains the UDA libraries
-	modulefiles/           Contains the module files
-	python_installer/      Files to install pyuda
+```bash
+$ tree -L 1 install
+install
+├── bin                  # Contains the server and CLI binaries
+├── etc                  # Contains all the server and plugin configuration files
+├── include              # Contains the UDA headers
+├── lib                  # Contains the UDA libraries
+├── modulefiles          # Contains the module files
+└── python_installer     # Files to install pyuda
 ```
 
 ---
@@ -173,16 +176,18 @@ install/
 
 - Inside the `install/etc` directory you will find the following:
 
-```text
-machine.d/            Configuration files for specific machines
-plugins/              Contains the configuration files to specify while plugins to load
-plugins.d/            Contains any configuration files that the plugins require
-rc.uda                Script used to launch a development xinetd service
-README.md             Details on use of rc.uda
-udagenstruct.conf     Internal configuration file used by the server
-udaserver.cfg         Runtime configuration for the UDA server
-udaserver.sh          Server launch script
-xinetd.conf           Xinetd options for running the server
+```bash
+$ tree -L 1 install/etc/
+install/etc/
+├── machine.d           # Configuration files for specific machines
+├── plugins             # Contains the configuration files to specify while plugins to load
+├── plugins.d           # Contains any configuration files that the plugins require
+├── rc.uda              # Script used to launch a development xinetd
+├── README.md           # Details on use of rc.uda
+├── udagenstruct.conf   # Internal configuration file used by the server
+├── udaserver.cfg       # Runtime configuration for the UDA server
+├── udaserver.sh        # Server launch script
+└── xinetd.conf         # Xinetd options for running the server
 ```
 
 - Configuration file from `machine.d` is determined by `dnsdomainname` — This can overridden by setting `UDAHOSTNAME` environmental variable in `udaserver.cfg`
@@ -204,13 +209,13 @@ cd install/etc
 - `CTRL + C` to kill the server
 - You should now see some debug files in the `etc` directory:
 
-```text
-etc/
-  DebugServer.log   Debug logging for the server
-  Error.log         Error logging for the server
-  Access.log        Access logging for the server
-  server.log        Any outputs written by the configuration scripts
-  startup.log       Anything written by the server before XDR streams are created
+```bash
+$ ls -1 *.log
+DebugServer.log   # Debug logging for the server
+Error.log         # Error logging for the server
+Access.log        # Access logging for the server
+server.log        # Any outputs written by the configuration scripts
+startup.log       # Anything written by the server before XDR streams are created
 ```
 
 - Last 2 are there to protect against anything breaking the server by writing to stdout
@@ -220,29 +225,31 @@ etc/
 Inside the `DebugServer.log` you should see:
 
 ```text
-2023:11:10T09:29:53.446219Z, getServerEnvironment.cpp:12 >> Server Environment Variable values  
-2023:11:10T09:29:53.446978Z, getServerEnvironment.cpp:13 >> Log Location    : /Users/jhollocombe/CLionProjects/UDA/etc/  
-2023:11:10T09:29:53.446989Z, getServerEnvironment.cpp:14 >> Log Write Mode  : a  
-2023:11:10T09:29:53.446996Z, getServerEnvironment.cpp:15 >> Log Level       : 1  
-2023:11:10T09:29:53.447003Z, getServerEnvironment.cpp:16 >> External User?  : 0  
-2023:11:10T09:29:53.447009Z, getServerEnvironment.cpp:17 >> UDA Proxy Host  :   
-2023:11:10T09:29:53.447015Z, getServerEnvironment.cpp:18 >> UDA This Host   :   
-2023:11:10T09:29:53.447021Z, getServerEnvironment.cpp:19 >> Private File Path Target    :   
-2023:11:10T09:29:53.447026Z, getServerEnvironment.cpp:20 >> Private File Path Substitute:   
-2023:11:10T09:29:53.447032Z, udaServer.cpp:1125 >> New Server Instance  
-2023:11:10T09:29:53.447080Z, udaServer.cpp:1149 >> XDR Streams Created  
-2023:11:10T09:29:53.572025Z, udaServer.cpp:1191 >> List of Plugins available  
-2023:11:10T09:29:53.572073Z, udaServer.cpp:1193 >> [0] 2 GENERIC  
-2023:11:10T09:29:53.572084Z, udaServer.cpp:1193 >> [1] 2 SERVERSIDE  
-2023:11:10T09:29:53.572092Z, udaServer.cpp:1193 >> [2] 2 SSIDE  
-2023:11:10T09:29:53.572100Z, udaServer.cpp:1193 >> [3] 2 SS  
-2023:11:10T09:29:53.572108Z, udaServer.cpp:1193 >> [4] 1000 BYTES  
-2023:11:10T09:29:53.572116Z, udaServer.cpp:1193 >> [5] 1001 HELP  
-2023:11:10T09:29:53.572124Z, udaServer.cpp:1193 >> [6] 1002 TEMPLATEPLUGIN  
-2023:11:10T09:29:53.572131Z, udaServer.cpp:1193 >> [7] 1003 TESTPLUGIN  
-2023:11:10T09:29:53.572139Z, udaServer.cpp:1193 >> [8] 1004 UDA  
-2023:11:10T09:29:53.572146Z, udaServer.cpp:1193 >> [9] 1005 VIEWPORT  
-2023:11:10T09:29:53.572178Z, udaServer.cpp:1035 >> Waiting for Initial Client Block
+$ cat DebugServer.log
+2023:11:16T11:53:29.6583Z, getServerEnvironment.cpp:12 >> Server Environment Variable values
+2023:11:16T11:53:29.6775Z, getServerEnvironment.cpp:13 >> Log Location    : /home/user/uda/install/etc/
+2023:11:16T11:53:29.6790Z, getServerEnvironment.cpp:14 >> Log Write Mode  : a
+2023:11:16T11:53:29.6795Z, getServerEnvironment.cpp:15 >> Log Level       : 1
+2023:11:16T11:53:29.6799Z, getServerEnvironment.cpp:16 >> External User?  : 0
+2023:11:16T11:53:29.6804Z, getServerEnvironment.cpp:17 >> UDA Proxy Host  :
+2023:11:16T11:53:29.6808Z, getServerEnvironment.cpp:18 >> UDA This Host   :
+2023:11:16T11:53:29.6812Z, getServerEnvironment.cpp:19 >> Private File Path Target    :
+2023:11:16T11:53:29.6816Z, getServerEnvironment.cpp:20 >> Private File Path Substitute:
+2023:11:16T11:53:29.6821Z, udaServer.cpp:1125 >> New Server Instance
+2023:11:16T11:53:29.6934Z, udaServer.cpp:1149 >> XDR Streams Created
+2023:11:16T11:53:29.108707Z, udaServer.cpp:1191 >> List of Plugins available
+2023:11:16T11:53:29.108745Z, udaServer.cpp:1193 >> [0] 2 GENERIC
+2023:11:16T11:53:29.108752Z, udaServer.cpp:1193 >> [1] 2 SERVERSIDE
+2023:11:16T11:53:29.108782Z, udaServer.cpp:1193 >> [2] 2 SSIDE
+2023:11:16T11:53:29.108788Z, udaServer.cpp:1193 >> [3] 2 SS
+2023:11:16T11:53:29.108793Z, udaServer.cpp:1193 >> [4] 1000 BYTES
+2023:11:16T11:53:29.108797Z, udaServer.cpp:1193 >> [5] 1001 NEWHDF5
+2023:11:16T11:53:29.108802Z, udaServer.cpp:1193 >> [6] 1002 HELP
+2023:11:16T11:53:29.108806Z, udaServer.cpp:1193 >> [7] 1003 TEMPLATEPLUGIN
+2023:11:16T11:53:29.108810Z, udaServer.cpp:1193 >> [8] 1004 TESTPLUGIN
+2023:11:16T11:53:29.108814Z, udaServer.cpp:1193 >> [9] 1005 UDA
+2023:11:16T11:53:29.108818Z, udaServer.cpp:1193 >> [10] 1006 VIEWPORT
+2023:11:16T11:53:29.108828Z, udaServer.cpp:1035 >> Waiting for Initial Client Block
 ```
 - Each line starts with a timestamp and the source location of the logging
 - You can see the list of the plugins that have been located and successfully loaded
@@ -252,14 +259,15 @@ Inside the `DebugServer.log` you should see:
 
 - Inside the `machine.d` directory you'll see the current machine configuration files:
 
-```text
-etc/machine.d/
-  hpc.l.cfg
-  iter.org.cfg
-  itm.rzg.mpg.de.cfg
-  jet.uk.cfg
-  mast.l.cfg
-  uda-external-jet.cfg
+```bash
+$ tree machine.d/
+machine.d/
+├── hpc.l.cfg
+├── iter.org.cfg
+├── itm.rzg.mpg.de.cfg
+├── jet.uk.cfg
+├── mast.l.cfg
+└── uda-external-jet.cfg
 ```
 
 ---
@@ -272,12 +280,17 @@ Task #6: Create machine configuration file
 </div>
 
 ```bash
-cd etc/machine.d/
-touch <TODO>.cfg
+touch machine.d/udatrain.cfg
 ```
 
 - The name of this file must match the result of `dnsdomainname` (or `hostname -f` if `dsndomainname` doesn't exist)
 - This can be overridden by setting `export UDAHOSTNAME=...` in `udaserver.cfg`, in which case the file should be `$UDAHOSTNAME.cfg`
+
+```bash
+vim udaserver.cfg
+```
+- Add `export UDAHOSTNAME=udatrain` to the top of this
+
 ---
 ### Machine configuration file
 
@@ -318,8 +331,9 @@ Task #8: Check server status
 - In the `etc/` directory you will also now see:
 
 ```text
-mylog.<MACHINE>.local        - xinetd service log file
-xinetd.<MACHINE>.local.pid   - file containing the pid of the local service
+mylog.io-ls-udatrain01.iter.org        - xinetd service log file
+xinetd.io-ls-udatrain01.iter.org.pid   - file containing the pid of the local service
+xinetd.logfile                         - xinetd logfile
 ```
 
 ---
@@ -393,7 +407,31 @@ servertime()    Return the Local Server Time in seconds and microseonds
 ---
 ## UDA CLI
 
-- TODO: Add details of UDA CLI
+```bash
+$ uda_cli --help
+Usage: uda_cli [options] request
+Allowed options:
+  --help                         produce help message
+  -h [ --host ] arg (=localhost) server host name
+  -p [ --port ] arg (=56565)     server port
+  --request arg                  request
+  --source arg                   source
+  --ping                         ping the server
+```
+
+- UDA CLI is a small helper program that can make requests to the server and print the resulting data to the console, e.g.:
+
+```bash
+$ ./bin/uda_cli -h localhost -p 56565 "testplugin::capnp()"
+request: testplugin::capnp()
+name: root
+  name: double_array
+  data: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, ... (30 elements)]
+  name: i32_array
+  data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ... (100 elements)]
+  name: i64_scalar
+  data: 999
+```
 
 ---
 ## Running test suite
@@ -404,6 +442,8 @@ Task #11: Run UDA tests
 
 ```bash
 cd build/test/plugins
+export UDA_HOST=localhost
+export UDA_PORT=56565
 ./plugin_test_testplugin
 ```
 
@@ -433,7 +473,7 @@ Task #12: Clone plugins repo
 </div>
 
 ```bash
-git clone https://git.iter.org/scm/imas/uda-plugins.git
+git clone -c http.extraheader="Authorization: Bearer $PLUGIN_TOKEN" https://git.iter.org/scm/imas/uda-plugins.git -b release/1.4.0
 cd uda-plugins
 ```
 
@@ -445,7 +485,7 @@ Task #13: Configure plugins
 </div>
 
 ```bash
-export PKG_CONFIG_PATH=$HOME/uda/install/lib/pkgconfig;/usr/local/imas/lib/pkgconfig
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/home/user/uda/install/lib/pkgconfig
 cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DBUILD_PLUGINS=imas -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
 ```
 
@@ -491,10 +531,29 @@ Task #15: Activate plugins
 ```
 
 ---
+## Updating server configuration
+
+- In the `install/etc/machine.d` directory edit the `udatrain.cfg` configuration that was created earlier.
+
+<div class="task">
+Task #16: Update configuration
+</div>
+
+- Add to the configuration file:
+
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/imas/core/IMAS/3.39.0-5.0.0-261-g91977d25/lib
+export UDA_IMAS_MAPPINGS_FILE=/home/user/uda-plugins/source/imas/mappings.txt
+```
+
+- This adds the required dynamic library path needed by the IMAS plugin to find the IMAS library at runtime
+- It also defines the `UDA_IMAS_MAPPINGS_FILE` variable required by the IMAS plugin to locate the mappings configuration
+
+---
 ## Testing plugins
 
 <div class="task">
-Task #16: Test plugin with UDA CLI
+Task #17: Test plugin with UDA CLI
 </div>
 
 ```bash
@@ -504,51 +563,66 @@ uda_cli -h localhost -p 56565 "IMAS::help()"
 - Runs the help function on the `IMAS` plugin &#8212; demonstrates that the plugin is installed and functioning
 
 ```text
-... output ...
+request: imas::help()
+# IMAS plugin
+
+The IMAS plugin is responsible for responding to requests from the IMAS UDA backend.
+The low level IMAS calls are mapped to plugin functions which are then used
+to read the data using either a local version of the IMAS backend or another UDA plugin
+to map non-IMAS data into the IMAS structure.
+
+## Functions
+
+The IMAS plugin responds to the following plugin requests:
+
+...
 ```
 
 ---
 ## Calling IMAS plugin
 
 <div class="task">
-Task #17: Opening IMAS data using plugin directly
+Task #18: Opening IMAS data using plugin directly
 </div>
 
 ```bash
-uda_cli -h localhost -p 56565 "IMAS::open(...)"
+uda_cli -h localhost -p 56565 "imas::open(uri='imas:hdf5?path=/home/user/data/122319/1', mode='open')"
 ```
+- This should return `1` which is the indication that the file was opened successfully
+- This is the type of plugin call that is generated by the IMAS UDA backend, it is not designed to be called manually but can be useful for debugging
 
 ---
 ## Using UDA with (python) IMAS
 
 <div class="task">
-Task #18: Opening remote data with IMAS
+Task #19: Opening remote data with IMAS
 </div>
 
 In `python3` run the following command:
 
 ```python
 >>> import imas
->>> entry = imas.DBEntry('imas://localhost:56565/uda?path=...&backend=hdf5', 'r')
+>>> entry = imas.DBEntry('imas://localhost:56565/uda?path=/home/user/data/105029/1&backend=hdf5&verbose=1', 'r')
+>>> entry.open()
 ```
 
 <div class="task">
-Task #19: Getting data using IMAS
+Task #20: Getting data using IMAS
 </div>
 
 In the same `python3` session:
 
 ```python
 >>> mag = entry.get('magnetics')
->>> flux_loop = entry.partial_get('magnetics/flux_loop(3)')
->>> eq_slice = entry.get_slice('equilibrium', time=0.1, ...)
+>>> flux_loop = entry.partial_get('magnetics' ,'flux_loop(3)')
+>>> eq_slice = entry.get_slice('equilibrium', time_requested=0.1, interpolation_method=imas.imasdef.CLOSEST_INTERP)
 ```
 
 ---
 ## Setting up SSL authenticated server
 
 <div class="task">
-Task #20: Copying server certificates
+Task #21: Copying server certificates
 </div>
 
 ```bash
@@ -557,7 +631,7 @@ cp <keys>/* $HOME/.uda/
 ```
 
 <div class="task">
-Task #21: Configuring UDA server for SSL
+Task #22: Configuring UDA server for SSL
 </div>
 
 ```bash
@@ -572,7 +646,7 @@ export UDA_SERVER_CA_SSL_CRL=...
 ## SSL authenticated client
 
 <div class="task">
-Task #22: Configuring UDA client for SSL
+Task #23: Configuring UDA client for SSL
 </div>
 
 ```bash
@@ -583,7 +657,7 @@ export UDA_CLIENT_CA_SSL_CERT=...
 ```
 
 <div class="task">
-Task #23: Checking SSL connection
+Task #24: Checking SSL connection
 </div>
 
 ```bash
@@ -594,7 +668,7 @@ uda_cli -h localhost -p 56565 "help::help()"
 ## Debugging UDA
 
 <div class="task">
-Task #24: Breaking in UDA client
+Task #25: Breaking in UDA client
 </div>
 
 ```bash
@@ -607,7 +681,7 @@ run
 ## Debugging UDA &#8212; server
 
 <div class="task">
-Task #25: Find pid of UDA server
+Task #26: Find pid of UDA server
 </div>
 
 ```bash
@@ -615,7 +689,7 @@ ps -fe | uda_server
 ```
 
 <div class="task">
-Task #26: Hook gdb onto running server
+Task #27: Hook gdb onto running server
 </div>
 
 ```bash
@@ -623,7 +697,7 @@ gdb -p <PID>
 ```
 
 <div class="task">
-Task #27: Breaking in plugin
+Task #28: Breaking in plugin
 </div>
 
 ```bash
@@ -635,7 +709,7 @@ cont
 ## Debugging UDA &#8212; client
 
 <div class="task">
-Task #28: Continue client
+Task #29: Continue client
 </div>
 
 ```
@@ -646,7 +720,7 @@ cont
 ## Installing a production server
 
 <div class="task">
-Task #29: Copy xinetd configuration
+Task #30: Copy xinetd configuration
 </div>
 
 ```bash
@@ -660,7 +734,7 @@ service xinetd restart
 ## Installing pyuda
 
 <div class="task">
-Task #30: Install pyuda
+Task #31: Install pyuda
 </div>
 
 ```bash
