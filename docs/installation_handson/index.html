@@ -171,22 +171,17 @@
 ## Install dependencies
 
 ```bash
-apt-get update && apt-get install -y \  
+dnf group install -y 'Development Tools' && \  
+dnf install -y \  
     git \  
-    libboost-dev \  
-    libboost-program-options-dev \  
-    libssl-dev \  
+    wget \  
+    boost-devel \  
+    openssl-devel \  
     cmake \  
-    build-essential \  
-    pkg-config \  
-    libxml2-dev \  
-    libspdlog-dev \  
-    ninja-build \  
-    capnproto \  
-    libcapnp-dev \  
-    python3-dev \  
-    python3-pip \  
-    python3-venv
+    libxml2-devel \  
+    libtirpc-devel \  
+    python3-devel \  
+    python3-pip
 ```
 
 - These dependencies have already been installed on the VMs
@@ -203,7 +198,7 @@ Task #1: Clone UDA
 </div>
 
 ```bash
-git clone https://github.com/ukaea/UDA.git -b 2.7.3 uda
+git clone https://github.com/ukaea/UDA.git -b release/2.7.4 uda
 cd uda
 ```
 
@@ -316,8 +311,82 @@ install/etc/
 ├── udaserver.sh        # Server launch script
 └── xinetd.conf         # Xinetd options for running the server
 ```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-- Configuration file from `machine.d` is determined by `dnsdomainname` — This can overridden by setting `UDAHOSTNAME` environmental variable in `udaserver.cfg`
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Configure the server
+
+<div class="task">
+Task #5: Navigate to the server configuration directory
+</div>
+
+```bash
+cd install/etc
+```
+
+- Inside the `machine.d` directory you'll see the current machine configuration files:
+
+```bash
+$ tree machine.d/
+machine.d/
+├── hpc.l.cfg
+├── iter.org.cfg
+├── itm.rzg.mpg.de.cfg
+├── jet.uk.cfg
+├── mast.l.cfg
+└── uda-external-jet.cfg
+```
+
+- The configuration file to load from `machine.d` is determined by `dnsdomainname` — but this can overridden by setting `UDAHOSTNAME` environmental variable in `udaserver.cfg`
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+### Configure the server (cont.)
+
+- Create a new configuration file to match the name of the VM:
+
+<div class="task">
+Task #6: Create machine configuration file
+</div>
+
+```bash
+touch machine.d/udatrain.cfg
+```
+
+- The name of this file must match the result of `dnsdomainname` (or `hostname -f` if `dsndomainname` doesn't exist)
+- This can be overridden by setting `export UDAHOSTNAME=...` in `udaserver.cfg`, in which case the file should be `$UDAHOSTNAME.cfg`
+
+<div class="task">
+Task #7: Update server configuration file
+</div>
+
+```bash
+vim udaserver.cfg
+```
+- Add `export UDAHOSTNAME=udatrain` to the top of this
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+### Machine configuration file
+
+- The machine configuration file can be used to set any environmental variables required by your UDA server instance
+- The machine configuration file is read after the `udaserver.cfg` file so can overwrite any options set there
+- Some important variables are:
+	- `UDA_LOG` &#8212; the directory where the log files should be written
+	- `UDA_LOG_MODE` &#8212; mode used to create the log file, i.e. `w` or `a`
+	- `UDA_LOG_LEVEL` &#8212; level of server logging (`INFO`, `DEBUG`, `WARN`, `ERROR` or `ACCESS`)
+	- `UDA_PLUGIN_CONFIG` &#8212; the location of the `udaPlugins.conf` file which specifies which plugins to load
+	- `UDA_PLUGIN_DIR` &#8212; the location of the plugin libraries to load (the server will also check the `LD_LIBRARY_PATH`)
+	- `LD_LIBRARY_PATH` &#8212; this can be used to append any additional paths need to load dynamic libraries needed by the plugins, i.e. the MDS+ libraries
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -327,12 +396,10 @@ install/etc/
 ## Checking the server
 
 <div class="task">
-Task #5: Test UDA server script
+Task #8: Test UDA server script
 </div>
 
 ```bash
-cd install/etc
-
 ./udaserver.sh
 ```
 
@@ -395,72 +462,10 @@ $ cat DebugServer.log
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
 
-## Configure the server
-
-- Inside the `machine.d` directory you'll see the current machine configuration files:
-
-```bash
-$ tree machine.d/
-machine.d/
-├── hpc.l.cfg
-├── iter.org.cfg
-├── itm.rzg.mpg.de.cfg
-├── jet.uk.cfg
-├── mast.l.cfg
-└── uda-external-jet.cfg
-```
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
-
-
-### Configure the server (cont.)
-
-- Create a new configuration file to match the name of the VM:
-
-<div class="task">
-Task #6: Create machine configuration file
-</div>
-
-```bash
-touch machine.d/udatrain.cfg
-```
-
-- The name of this file must match the result of `dnsdomainname` (or `hostname -f` if `dsndomainname` doesn't exist)
-- This can be overridden by setting `export UDAHOSTNAME=...` in `udaserver.cfg`, in which case the file should be `$UDAHOSTNAME.cfg`
-
-```bash
-vim udaserver.cfg
-```
-- Add `export UDAHOSTNAME=udatrain` to the top of this
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
-
-
-### Machine configuration file
-
-- The machine configuration file can be used to set any environmental variables required by your UDA server instance
-- The machine configuration file is read after the `udaserver.cfg` file so can overwrite any options set there
-- Some important variables are:
-	- `UDA_LOG` &#8212; the directory where the log files should be written
-	- `UDA_LOG_MODE` &#8212; mode used to create the log file, i.e. `w` or `a`
-	- `UDA_LOG_LEVEL` &#8212; level of server logging (`INFO`, `DEBUG`, `WARN`, `ERROR` or `ACCESS`)
-	- `UDA_PLUGIN_CONFIG` &#8212; the location of the `udaPlugins.conf` file which specifies which plugins to load
-	- `UDA_PLUGIN_DIR` &#8212; the location of the plugin libraries to load (the server will also check the `LD_LIBRARY_PATH`)
-	- `LD_LIBRARY_PATH` &#8212; this can be used to append any additional paths need to load dynamic libraries needed by the plugins, i.e. the MDS+ libraries
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
-
-
 ## Running a test server
 
 <div class="task">
-Task #7: Start server
+Task #9: Start server
 </div>
 
 ```bash
@@ -471,7 +476,7 @@ Task #7: Start server
 - To see the status of the service run:
 
 <div class="task">
-Task #8: Check server status
+Task #10: Check server status
 </div>
 
 ```bash
@@ -539,7 +544,7 @@ service uda
 ## Test the connection
 
 <div class="task">
-Task #9: Check server socket connection
+Task #11: Check server socket connection
 </div>
 
 ```bash
@@ -549,10 +554,11 @@ nc -zv localhost 56565
 - This tests that the socket is open and receiving connections
 
 <div class="task">
-Task #10: Use UDA CLI to test server
+Task #12: Use UDA CLI to test server
 </div>
 
 ```bash
+export PATH=`$PATH:$`HOME/uda/install/bin
 uda_cli -h localhost -p 56565 "help::help()"
 ```
 
@@ -590,7 +596,7 @@ Allowed options:
 - UDA CLI is a small helper program that can make requests to the server and print the resulting data to the console, e.g.:
 
 ```bash
-$ ./bin/uda_cli -h localhost -p 56565 "testplugin::capnp()"
+$ uda_cli -h localhost -p 56565 "testplugin::capnp()"
 request: testplugin::capnp()
 name: root
   name: double_array
@@ -609,7 +615,7 @@ name: root
 ## Running test suite
 
 <div class="task">
-Task #11: Run UDA tests
+Task #13: Run UDA tests
 </div>
 
 ```bash
@@ -649,7 +655,7 @@ All tests passed (1108166 assertions in 48 test cases)
 ## Installing plugins &#8212; clone
 
 <div class="task">
-Task #12: Clone plugins repo
+Task #14: Clone plugins repo
 </div>
 
 ```bash
@@ -665,7 +671,7 @@ cd uda-plugins
 ## Installing plugins &#8212; configure
 
 <div class="task">
-Task #13: Configure plugins
+Task #15: Configure plugins
 </div>
 
 ```bash
@@ -679,11 +685,11 @@ cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DBUILD_PLUGINS=imas -DCMAKE_INSTALL_PREF
 
 
 <div class="task">
-Task #14: Build and install plugins
+Task #16: Build and install plugins
 </div>
 
 ```bash
-cmake --build build/
+cmake --build build/ -j 2
 cmake --install build/
 ```
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
@@ -711,7 +717,7 @@ done
 
 
 <div class="task">
-Task #15: Activate plugins
+Task #17: Activate plugins
 </div>
 
 ```bash
@@ -728,18 +734,21 @@ Task #15: Activate plugins
 - In the `install/etc/machine.d` directory edit the `udatrain.cfg` configuration that was created earlier.
 
 <div class="task">
-Task #16: Update configuration
+Task #18: Update configuration
 </div>
+
+```bash
+cd $HOME/uda/install/etc
+vim machine.d/udatrain.cfg
+```
 
 - Add to the configuration file:
 
 ```bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/imas/core/IMAS/3.39.0-5.0.0-261-g91977d25/lib
 export UDA_IMAS_MAPPINGS_FILE=/home/user/uda-plugins/source/imas/mappings.txt
 ```
 
-- This adds the required dynamic library path needed by the IMAS plugin to find the IMAS library at runtime
-- It also defines the `UDA_IMAS_MAPPINGS_FILE` variable required by the IMAS plugin to locate the mappings configuration
+- This defines the `UDA_IMAS_MAPPINGS_FILE` variable required by the IMAS plugin to locate the mappings configuration
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -749,7 +758,7 @@ export UDA_IMAS_MAPPINGS_FILE=/home/user/uda-plugins/source/imas/mappings.txt
 ## Testing plugins
 
 <div class="task">
-Task #17: Test plugin with UDA CLI
+Task #19: Test plugin with UDA CLI
 </div>
 
 ```bash
@@ -782,7 +791,7 @@ The IMAS plugin responds to the following plugin requests:
 ## Calling IMAS plugin
 
 <div class="task">
-Task #18: Opening IMAS data using plugin directly
+Task #20: Opening IMAS data using plugin directly
 </div>
 
 ```bash
@@ -799,8 +808,13 @@ uda_cli -h localhost -p 56565 "imas::open(uri='imas:hdf5?path=/home/user/data/12
 ## Using UDA with (python) IMAS
 
 <div class="task">
-Task #19: Opening remote data with IMAS
+Task #21: Opening remote data with IMAS
 </div>
+
+```bash
+export LD_LIBRARY_PATH=`$LD_LIBRARY_PATH:$`HOME/uda/install/lib
+python3
+```
 
 In `python3` run the following command:
 
@@ -811,7 +825,7 @@ In `python3` run the following command:
 ```
 
 <div class="task">
-Task #20: Getting data using IMAS
+Task #22: Getting data using IMAS
 </div>
 
 In the same `python3` session:
@@ -827,53 +841,27 @@ In the same `python3` session:
 <img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
 
 
-## Setting up SSL authenticated server
+## Installing JSON mapping plugin
 
 <div class="task">
-Task #21: Copying server certificates
+Task #23: Clone the repo
 </div>
 
 ```bash
-mkdir $HOME/.uda/
-cp <keys>/* $HOME/.uda/
+cd $HOME
+git clone ... json-plugin
+cd json-plugin
 ```
 
 <div class="task">
-Task #22: Configuring UDA server for SSL
+Task #24: Install and activate
 </div>
 
 ```bash
-export UDA_SERVER_SSL_AUTHENTICATE=1
-export UDA_SERVER_SSL_CERT=...
-export UDA_SERVER_SSL_KEY=...
-export UDA_SERVER_CA_SSL_CERT=...
-export UDA_SERVER_CA_SSL_CRL=...
-```
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
-
-
-## SSL authenticated client
-
-<div class="task">
-Task #23: Configuring UDA client for SSL
-</div>
-
-```bash
-export UDA_CLIENT_SSL_AUTHENTICATE=1
-export UDA_CLIENT_SSL_CERT=...
-export UDA_CLIENT_SSL_KEY=...
-export UDA_CLIENT_CA_SSL_CERT=...
-```
-
-<div class="task">
-Task #24: Checking SSL connection
-</div>
-
-```bash
-uda_cli -h localhost -p 56565 "help::help()"
+cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
+cmake --build build/ -j 2
+cmake --install build/
+./build/scripts/activate-plugins.sh
 ```
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
@@ -978,6 +966,61 @@ pip3 install uda/install/python_installer
 ```
 
 - If you've installed UDA in another directory then you will need to change the last line to `pip3 install <INSTALL_DIR>/python_installer`
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Setting up SSL authenticated server
+
+<div class="task">
+Task #32: Copying server certificates
+</div>
+
+```bash
+mkdir $HOME/.uda/
+cp <keys>/* $HOME/.uda/
+```
+
+<div class="task">
+Task #33: Configuring UDA server for SSL
+</div>
+
+```bash
+export UDA_SERVER_SSL_AUTHENTICATE=1
+export UDA_SERVER_SSL_CERT=...
+export UDA_SERVER_SSL_KEY=...
+export UDA_SERVER_CA_SSL_CERT=...
+export UDA_SERVER_CA_SSL_CRL=...
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## SSL authenticated client
+
+<div class="task">
+Task #34: Configuring UDA client for SSL
+</div>
+
+```bash
+export UDA_CLIENT_SSL_AUTHENTICATE=1
+export UDA_CLIENT_SSL_CERT=...
+export UDA_CLIENT_SSL_KEY=...
+export UDA_CLIENT_CA_SSL_CERT=...
+```
+
+<div class="task">
+Task #35: Checking SSL connection
+</div>
+
+```bash
+uda_cli -h localhost -p 56565 "help::help()"
+```
 </div></script></section></div>
     </div>
 

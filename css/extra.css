@@ -107,6 +107,7 @@ div.task {
   font-weight: bold;
   width: 80%;
   text-align: left;
+  padding-top: 0.5em;
   /* visibility: hidden; */
 }
 
