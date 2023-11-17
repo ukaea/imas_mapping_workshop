@@ -47,6 +47,22 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - Please ask questions as we go
 
 ---
+## Connection details
+
+- Please connect to the VM from the SDCC login nodes:
+ 
+```bash
+ssh user@io-ls-udatrain##
+```
+
+- Password is also `user`
+- Replace the `##` above with the VM number you have been assigned, i.e. if you have VM#03 you would log on as follows:
+
+```bash
+ssh user@io-ls-udatrain03
+```
+
+---
 ## UDA dependencies
 
 - Required dependencies:
