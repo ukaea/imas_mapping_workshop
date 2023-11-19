@@ -36,6 +36,7 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - Client-Server architecture to separate users from location and format of data files
 - Developed a plugin architecture on the server to allow more formats to be added without having to update the server
 - Coupling of network data transport with extensible server plugins makes it useful for interfacing with IMAS for remote data access
+- UDA is open source (Apache 2.0) and available at https://github.com/ukaea/UDA
 
 ---
 ## UDA — Design
