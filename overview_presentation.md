@@ -32,10 +32,12 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ## UDA — History & Philosophy
 
 - Created for MAST to abstract away change from IDA3 (custom binary format) to NetCDF4
+	- Shield users and analysis codes from this change
 - Also to allow interaction between 32bit and 64bit machines
 - Client-Server architecture to separate users from location and format of data files
 - Developed a plugin architecture on the server to allow more formats to be added without having to update the server
 - Coupling of network data transport with extensible server plugins makes it useful for interfacing with IMAS for remote data access
+- UDA is open source (Apache 2.0) and available at https://github.com/ukaea/UDA
 
 ---
 ## UDA — Design

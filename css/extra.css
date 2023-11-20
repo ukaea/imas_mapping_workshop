@@ -30,6 +30,10 @@ div.slide-number {
   margin-bottom: 0.3em;
 }
 
+.reveal li li {
+  margin-top: 0.3em;
+}
+
 .reveal .slide-number:has(a[href="#/"]) {
   display: none !important;
 }

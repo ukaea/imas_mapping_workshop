@@ -29,6 +29,7 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ## Motivation
 
 - This workshop is aiming to give you an insight into what UDA is, how it works and how it can be used in IMAS to map experimental data
+- Experimental data in IMAS format is needed to validate ITER software and can help creating multi-machine databases for AI/ML
 - There will be hands-on session to cover how to set up a UDA server, develop JSON mappings and create a mapping plugin for your device
 - At the end of this workshop you should have the knowledge of the basic building blocks needed to develop mappings for any machine
 - Future training and documentation can build on this knowledge for machine specific cases
@@ -46,7 +47,7 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ## Background (IMAS-UDA)
 
 - UDA has been used for several years to provide mapped data access in IMAS
-- Previous efforts have used existing work (EXP2ITM) and relied on somewhat shaky infrastructure stacks to enable this
+- Previous efforts have built upon existing work (EXP2ITM) and relied on somewhat shaky infrastructure stacks to enable this
 - With release of AL5 and introduction of IMAS URIs UDA can now be used to read IMAS data files remotely
 - Building on the improved UDA backend and plugins for AL5 the JSON mapping plugin is designed to provide a better way to write and manage the mappings for multiple machines
 
@@ -56,9 +57,8 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 | Name | Type | Description |
 | -----|-------| ------------|
 | UDA Overview | Presentation | Detailing how UDA works to provide context for it's use in IMAS |
-| UDA Installation | Hands-On | Covering installing and configuring a UDA server, plugin installation, and basic UDA usage |
-| IMAS UDA | Presentation |  Detailing how UDA is used in IMAS remote data access and experimental data mapping |
-| IMAS UDA | Hands-On | Using IMAS to get data using UDA from IMAS data files and mapped data |
+| IMAS UDA | Presentation | Detailing how UDA is used in IMAS remote data access and experimental data mapping |
+| UDA Installation | Presentation | Covering installing and configuring a UDA server, plugin installation, and basic UDA usage |
 
 
 ---
@@ -74,8 +74,9 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ---
 ## Workshop Prerequisites
 
-What we assume from attendees:<!-- element style="text-align: left; width: 90%" -->
+What we assume from attendees:<!-- element style="text-align: left; width: 50%" -->
 
+- Basic knowledge on IMAS and particularly its data model
 - Interest in using UDA to map experimental data into IMAS
 - Some basic C/C++ & Python knowledge
 - Familiarity with Linux systems and command line usage
@@ -83,7 +84,7 @@ What we assume from attendees:<!-- element style="text-align: left; width: 90%" 
 ---
 ## Workshop Information
 
-- Please ask questions during the presentations &#8212; any that can't be answered quickly can be discussed later or noted for expansion upon in training materials
+- Please ask questions during the presentations &#8212; any that can't be answered quickly can be discussed later or noted for expansion upon in future training materials
 - All hands-on work is designed to be done on the provided ITER training VMs
 	- The material should work on other machines but may require the installation of some prerequisites and we probably can't support this during the workshop
 - Adam & I will be available for on-site questions and will try and answer on-line questions when we can. Stephen will be provided on-line support to provide additional support.
@@ -92,7 +93,8 @@ What we assume from attendees:<!-- element style="text-align: left; width: 90%" 
 ---
 ## Logistics & Administration
 
-«TODO»
-
-- Details of workshop dinner, timings, buses, site tour, etc.
-- Any health & safety info.
+- WiFi -> choose "Guest wireless" and then "Login with your ITER account"
+- How-to connect to SDCC: https://confluence.iter.org/display/IMP/ITER+Computing+Cluster
+- Regular ITER bus lines to Aix (A, B, C) are departing at 17:45 from the parking lot in entrance C
+- Work site visit Tuesday afternoon at 15:45
+- Workshop dinner at the restaurant L'Orangerie in Hotel Aquabella (Aix-en-Provence) at 19:30

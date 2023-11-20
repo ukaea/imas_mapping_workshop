@@ -681,7 +681,7 @@ Task #25: Breaking in UDA client
 </div>
 
 ```bash
-gdb uda_cli -h localhost -p 56565 "help::help()"
+gdb --args uda_cli -h localhost -p 56565 "help::help()"
 break udaClient.cpp:743
 run
 ```
