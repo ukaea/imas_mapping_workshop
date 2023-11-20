@@ -96,14 +96,14 @@ div.slide-number {
 
 .reveal section img.licence {
   position: absolute;
-  left: 100%;
+  left: 90%;
   top: 90%;
   border: none;
 }
 
 .reveal section img.shield {
   position: absolute;
-  left: -20%;
+  left: 0%;
   top: 0%;
   border: none;
 }

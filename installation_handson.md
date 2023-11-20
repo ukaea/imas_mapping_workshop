@@ -401,7 +401,7 @@ Task #11: Check server socket connection
 </div>
 
 ```bash
-nc -zv localhost 56565
+nc -zv -4 localhost 56565
 ```
 
 - This tests that the socket is open and receiving connections
@@ -411,7 +411,7 @@ Task #12: Use UDA CLI to test server
 </div>
 
 ```bash
-export PATH=$PATH:$HOME/uda/install/bin
+export PATH=$PATH:/home/user/uda/install/bin
 uda_cli -h localhost -p 56565 "help::help()"
 ```
 
@@ -496,6 +496,7 @@ Task #14: Clone plugins repo
 </div>
 
 ```bash
+cd $HOME
 git clone -c http.extraheader="Authorization: Bearer $PLUGIN_TOKEN" https://git.iter.org/scm/imas/uda-plugins.git -b release/1.4.0
 cd uda-plugins
 ```
@@ -658,7 +659,7 @@ Task #23: Clone the repo
 
 ```bash
 cd $HOME
-git clone ... json-plugin
+git clone -b v0.1.2-alpha https://github.com/adam-parker1/JSON-mapping-plugin.git json-plugin
 cd json-plugin
 ```
 
@@ -671,6 +672,9 @@ cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
 cmake --build build/ -j 2
 cmake --install build/
 ./build/scripts/activate-plugins.sh
+
+uda_cli -h localhost -p 56565 "help::services()"
+uda_cli -h localhost -p 56565 "imas_json_map::help()"
 ```
 
 ---

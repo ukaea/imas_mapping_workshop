@@ -66,10 +66,10 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 
 | Name | Type | Description |
 | -----|-------| ------------|
-| Mappings | Presentation | ... |
-| Mappings | Hands-On | ... |
-| MASTU Mapping | Presentation | ... |
-| Data Access Plugin | Hands-On | ... |
+| Data Mappings | Presentation | Overview of data mapping with UDA and the new JSON plugin |
+| Data Mappings | Hands-On | Developing a new mapping file |
+| MASTU Mapping | Presentation | Data mapping with UDA for MAST-U |
+| Data Access Plugin | Hands-On | Developing a new machine specific plugin |
 
 ---
 ## Workshop Prerequisites
@@ -88,7 +88,7 @@ What we assume from attendees:<!-- element style="text-align: left; width: 50%" 
 - All hands-on work is designed to be done on the provided ITER training VMs
 	- The material should work on other machines but may require the installation of some prerequisites and we probably can't support this during the workshop
 - Adam & I will be available for on-site questions and will try and answer on-line questions when we can. Stephen will be provided on-line support to provide additional support.
-- Please use «live document» for all questions and discussions
+- Please use Google docs for all questions and discussions
 
 ---
 ## Logistics & Administration
@@ -98,3 +98,4 @@ What we assume from attendees:<!-- element style="text-align: left; width: 50%" 
 - Regular ITER bus lines to Aix (A, B, C) are departing at 17:45 from the parking lot in entrance C
 - Work site visit Tuesday afternoon at 15:45
 - Workshop dinner at the restaurant L'Orangerie in Hotel Aquabella (Aix-en-Provence) at 19:30
+- Updated agenda and links to Google docs and more information can be found on the Inidico page https://indico.iter.org/event/81/

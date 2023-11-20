@@ -124,6 +124,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 		- `PLUGIN::FUNC(foo=1.23)` - parsing float arg
 		- `PLUGIN::FUNC(foo='abc')` - parsing string arg (quotes are optional)
 		- `PLUGIN::FUNC(foo=1;2;3)` - parsing list arg
+		- `PLUGIN::FUNC()[::]` - slicing
 
 ---
 ## UDA — Batch Requests
