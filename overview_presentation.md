@@ -42,26 +42,28 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ---
 ## UDA — Design
 
-![[images/UDA.svg|1000]]
+![[images/UDA.svg|1400]]
 
 ---
 ## UDA — Design (Server)
 
-![[UDA Server.svg|700]]
+![[UDA Server.svg|1000]]
 
 ---
 ## UDA — Design (Client)
 
-![[UDA Client.svg|400]]
+![[UDA Client.svg|600]]
 
 ---
 ## UDA — Server Architecture
 
 - Plugins loaded based on Plugins.conf
-- Requests are received as Signal & Source
+- Requests are received as pairs of Signal & Source strings
+	- E.g. ("AMC_PLASMA_CURRENT", "30420/2")
+- Signal and Source strings are case insensitive
 - Multiple requests can be received in one batch
 - Requests are handled by calling one or more plugins
-- Data is serialised and returned to client
+- After the data is returned from the plugin, it is serialised and returned to client
 
 ---
 ## UDA — udaPlugins.conf
@@ -92,9 +94,7 @@ UDA, function, UDAPlugin, libuda_plugin.dylib, *, 1, 1, 1, forward on requests t
 VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data to viewport pixel size, viewport::get()
 ```
 
-<grid drag="80 20" drop="10 70" align="left" bg="orange" pad="0 20px 0 20px">
-**Note\:** udaPlugins.conf may be replaced by auto-plugin discovery in a future UDA version
-</grid>
+> udaPlugins.conf may be replaced by auto-plugin discovery in a future UDA version
 
 ---
 ## UDA — Request Processing
@@ -118,7 +118,7 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 - A plugin request looks like:
 	- `PLUGIN::FUNCTION(ARGS)`
 	- `PLUGIN` - the name of the plugin as defined in the `udaPlugins.conf`
-	- `FUNCTION`
+	- `FUNCTION` - the name of the function on the plugin to call
 	- `ARGS` - 0 or more comma separated arguments to be passed to the function, e.g.
 		- `PLUGIN::FUNC(foo=1)` - passing integer arg
 		- `PLUGIN::FUNC(foo=1.23)` - parsing float arg
@@ -137,10 +137,10 @@ VIEWPORT, function, viewport, libviewport_plugin.dylib, *, 1, 1, 1, Reduce data 
 ## UDA — Plugins
 
 - The UDA plugins is where most of the work is done in the server
-- The plugins responsibility is to handle the request parsed from the server and return data back
+- The plugins responsibility is to handle the request parsed from the server and return data
 - Plugins can be written in any language but must be compiled into a shared library and present a C style entry function
 	- This entry function must match the name provided in the udaPlugins.conf
-- More details will be provided in the plugin workshop
+- More details will be provided in the plugin hands-on tomorrow
 
 ---
 ### UDA — Plugins - Entry Function
@@ -210,6 +210,49 @@ if (udaFunctionCalled(plugin_interface, "help")
     return do_something(plugin_interface);  
 }
 ```
+
+---
+## UDA — Plugins — Interacting with plugin interface
+
+- The `IDAM_PLUGIN_INTERFACE` contains all the data needed to handle the request and is where the resultant data should be stored
+- For extracting the arguments passed to the plugin helper functions and macros are provided:
+
+```C
+REQUEST_DATA* request = plugin_interface->request_data;
+
+const char* host = nullptr;  
+bool isHost = findStringValue(&request->nameValueList, &host, "host");
+
+const char* file_path = nullptr;  
+FIND_REQUIRED_STRING_VALUE(request->nameValueList, file_path);
+```
+
+> In UDA 3.0 we plan to make the plugin interface structure opaque, all interaction with the interface will need to be done via the helper functions which will be updated accordingly, e.g. <br> `FIND_REQUIRED_STRING_VALUE(plugin_interface, file_path);`
+
+---
+## UDA — Plugins — Interacting with plugin interface (cont.)
+
+- Returning data from the plugin is also done via the plugin interface
+- Again helper functions and macros are provided for this purpose:
+
+```C
+setReturnDataIntScalar(plugin_interface->data_block, THISPLUGIN_VERSION, "Plugin version number");
+
+std::vector<float> array = {1, 2, 3, 4};
+std::vector<size_t> shape = {4};
+std::string description = "some data";
+udaSetReturnDataFloatArray(plugin_interface->data_block, array.data(), shape.size(), shape.data(), description.c_str());
+```
+
+- Errors are returned by using the `RAISE_PLUGIN_ERROR` macro which records the error message and returns a non-zero return code:
+
+```
+RAISE_PLUGIN_ERROR("something has gone wrong")
+
+RAISE_PLUGIN_ERROR_F("error output %s", my_error())
+```
+
+- Within the plugin you are free to use exceptions but they must not go beyond the plugin call, i.e. you should have a top level catch and then use the `RAISE_PLUGIN_ERROR` macro to return the error state to the server
 
 ---
 ### UDA — Plugins — Default Plugins
@@ -367,3 +410,10 @@ data_block->data = buffer.data;
 data_block->dims = nullptr;  
 data_block->data_type = UDA_TYPE_CAPNP;
 ```
+
+---
+
+## Questions?
+
+- The next presentation will cover the use of UDA in IMAS and how this facilitates remote data access and the mapping of experimental data
+

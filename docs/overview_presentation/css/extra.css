@@ -78,11 +78,16 @@ div.slide-number {
   font-style: normal;
   background-color: #002F55;
   color: white;
+  padding-left: 1em;
+  padding-right: 1em;
+  font-size: 0.8em;
+  max-width: 80%;
 }
 
 .reveal blockquote p::before {
   content: 'Note: ';
   font-weight: bold;
+  color: #9091b3;
 }
 
 .reveal img {
