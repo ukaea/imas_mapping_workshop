@@ -141,7 +141,9 @@ mkdir JSON_mappings/draft
 ---
 ## Installing pyuda client
 
+<div class="task">
 Extra Task if not completed yesterday
+</div>
 
 ```sh
 cd python3 -m venv venv 
@@ -164,11 +166,11 @@ Task #6: Retrieve homogeneous_time for magnetics and pf_active
 - Set your host and port (hopefully you know this)
 
 ```python
-...
+import pyuda
 pyuda.Client.server = '<host>'
 pyuda.Client.port = <port>
 client = pyuda.Client()
-client.get("IMAS_JSON_MAP::get(path=magnetics/ids_properties/homogeneous_time, mapping=DRAFT)")
+result = client.get("IMAS_JSON_MAP::get(path=magnetics/ids_properties/homogeneous_time, mapping=DRAFT)")
 ...
 ```
 - Then print and inspect what is returned
@@ -181,9 +183,9 @@ Task #7: Retrieve homogeneous_time for magnetics and pf_active **through IMAS**
 - Now do the same using `partial_get` through the IMAS client
 
 ```python
-...
-entry.partial_get(ids_name='<ids>', data_path='<path>')
-...
+import imas
+entry = imas.DBEntry('imas://localhost:56565/uda?path=/home/user/data/105029/1&backend=hdf5&verbose=1', 'r')
+entry.partial_get('magnetics' ,'flux_loop(3)')
 ```
 
 ---
