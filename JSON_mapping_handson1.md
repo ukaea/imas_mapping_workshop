@@ -180,11 +180,12 @@ print(result.data)
 - Then print and inspect what is returned
 
 <div class="task">
-Task #7: Retrieve homogeneous_time for magnetics and pf_active through IMAS
+Task #7: Retrieve homogeneous_time for magnetics and pf_active **through IMAS**
 </div>
 <br>
 
 - Now do the same using `partial_get` through the IMAS client
+-  you may need to set `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/uda/install/lib` 
 
 ```bash
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/uda/install/lib
@@ -194,7 +195,7 @@ python
 ```python
 import imas
 entry = imas.DBEntry('imas://localhost:56565/uda?mapping=DRAFT&verbose=1&path=/', 'r')
-entry.partial_get('magnetics' , 'ids_properties')
+ids_properties = entry.partial_get('magnetics' ,'ids_properties')
 ```
 
 ---
@@ -239,7 +240,7 @@ Task #9: Validate JSON and compare to toplevel schema
 
 ```bash
 # cd to mapping directory
-SCHEMAFILE=/home/user/json-plugin/IMAS_workshop_mappings/schemas/toplevel.schema.json
+SCHEMAFILE=/home/user/json-plugin/my-mappings/schemas/toplevel.schema.json
 cd /home/user/uda/install/etc/JSON_mappings/draft
 check-jsonschema -v --schemafile $SCHEMAFILE pf_active/mappings.json
 ```
@@ -376,6 +377,11 @@ Task #14: Add PLUGIN entry and the FUNCTION field to pf_active
 
 Give it a go calling this `test/plugin_function` signal directly again
 
+```python
+result = client.get("IMAS_JSON_MAP::get(path=pf_active/my/random/signal, mapping=DRAFT, shot=45272)")
+print(result.data)
+```
+Add shot here, for later (it is needed)
 ```bash
 # should return...
 [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]
