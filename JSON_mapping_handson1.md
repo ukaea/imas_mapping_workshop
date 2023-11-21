@@ -244,7 +244,7 @@ Task #9: Validate JSON and compare to toplevel schema
 
 ```bash
 # cd to mapping directory
-SCHEMAFILE=/home/user/json-plugin/my-mappings/schemas/toplevel.schema.json
+SCHEMAFILE=/home/user/json-plugin/IMAS_workshop_mappings/schemas/toplevel.schema.json
 cd /home/user/uda/install/etc/JSON_mappings/draft
 check-jsonschema -v --schemafile $SCHEMAFILE pf_active/mappings.json
 ```
@@ -313,8 +313,8 @@ Task #12: Quickfire add mapping entries 2
 	"test/expression_signal": {
 		"MAP_TYPE": "EXPR",
 		"PARAMETERS": {
-			"X": "/test/signal1",
-			"Y": "/test/signal2"
+			"X": "test/signal1",
+			"Y": "test/signal2"
 		},
 		"EXPR": "X*Y + 3.4"
 	},
