@@ -33,11 +33,12 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 - **Release 2.8.0**
 	- Windows CI build
 	- Unification with ITER CODAC UDA
-- **Release 2.8.x**
-	- Any updates and bugfixes required for some existing issues (SSL, etc.)
+- **Release 2.8.$x$**
+	- Any updates and bugfixes required for outstanding issues (SSL, etc.)
 - **Release 3.0**
 	- Tidying up UDA header files
-	- Making `IDAM_INTERFACE_STRUCTURE` opaque
+	- Making `IDAM_PLUGIN_INTERFACE` structure opaque
+		- With more plugin helper functions
 	- Rewritten C++ client
 		- Should hopefully fix issues around multiple clients open in Python etc.
 
@@ -51,8 +52,8 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 
 - **Release TBD**
 	- Moving from xinetd to systemd
-	- Adding ability to run server outside of xinetd/system
-	- Additional data access plugins in the core repo (`MDS+`, etc.?)
+	- Adding ability to run server outside of xinetd/systemd
+	- Additional data access plugins in the core repo (MDS+, etc.)
 	- Always more documentation!
 - **Additional developments?**
 	- Async data requests
@@ -65,7 +66,8 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ![[chevrons.svg]]
 </grid>
 
-- ...
+- **Release 5.x**
+	- ...
 
 ---
 ## IMAS plugin roadmap
@@ -74,7 +76,12 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ![[chevrons.svg]]
 </grid>
 
-- ...
+- **Release 1.4.0**
+	- Tagged release for changes and fixes from workshop preparation
+- **Release 1.4.$x$**
+	- Any changes & bugfixes required for outstanding issues
+	- Updates from outcome of performance studies
+- **Release TBD**
 
 
 ---
