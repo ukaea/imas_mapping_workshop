@@ -171,6 +171,7 @@ pyuda.Client.server = '<host>'
 pyuda.Client.port = <port>
 client = pyuda.Client()
 result = client.get("IMAS_JSON_MAP::get(path=magnetics/ids_properties/homogeneous_time, mapping=DRAFT)")
+print(result.data)
 ...
 ```
 - Then print and inspect what is returned
@@ -260,7 +261,8 @@ Task #10: Add VALUE mapping entry to pf_active
 Call this mystery, random, test signal directly with the JSON plugin
 
 ```python
-client.get("IMAS_JSON_MAP::get(path=pf_active/my/random/signal, mapping=DRAFT)")
+result = client.get("IMAS_JSON_MAP::get(path=pf_active/my/random/signal, mapping=DRAFT)")
+print(result.data)
 ```
 
 Note, we still need to start with pf_active as this if the mapping file containing our mapping <br>(even if it is not an IDS path)
