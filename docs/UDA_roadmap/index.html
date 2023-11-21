@@ -117,7 +117,7 @@
 
 ## UDA roadmap
 
-<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 30%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 25%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
 
 <img src="images/chevrons.svg" alt="" style="object-fit: scale-down">
 
@@ -127,9 +127,11 @@
 	- Windows CI build
 	- Unification with ITER CODAC UDA
 - **Release 2.8.`$x$`**
-	- Any updates and bugfixes required for outstanding issues (SSL, etc.)
+	- Any updates and bugfixes required for outstanding issues
+		- Issues with SSL authentication, etc.
 - **Release 3.0**
 	- Tidying up UDA header files
+		- Only public API headers will be installed to avoid codes relying on implementation details
 	- Making `IDAM_PLUGIN_INTERFACE` structure opaque
 		- With more plugin helper functions
 	- Rewritten C++ client
@@ -152,10 +154,12 @@
 	- Moving from xinetd to systemd
 	- Adding ability to run server outside of xinetd/systemd
 	- Additional data access plugins in the core repo (MDS+, etc.)
+	- Ongoing refactoring & modernisation efforts
 	- Always more documentation!
 - **Additional developments?**
-	- Async data requests
+	- Async/streaming data requests
 	- Move from XDR serialisation to something else
+	- Integration of AAI
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -164,14 +168,19 @@
 
 ## IMAS UDA backend roadmap
 
-<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 30%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 25%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
 
 <img src="images/chevrons.svg" alt="" style="object-fit: scale-down">
 
 </div>
 
-- **Release 5.x**
-	- ...
+- **Release 5.0.1 (?)**
+	- Release of changes in current develop branch of IMAS
+	- Changes required to use UDA backend with mapped data
+- **Release TBD**
+	- Any performance changes identified in performance profiling
+	- Integration testing of UDA backend with remote data and mapped data
+	- Refactoring and code improvements
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -180,7 +189,7 @@
 
 ## IMAS plugin roadmap
 
-<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 30%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 25%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
 
 <img src="images/chevrons.svg" alt="" style="object-fit: scale-down">
 
@@ -191,6 +200,7 @@
 - **Release 1.4.`$x$`**
 	- Any changes & bugfixes required for outstanding issues
 	- Updates from outcome of performance studies
+		- Including handling of NaNs from mapped data
 - **Release TBD**
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
@@ -200,7 +210,7 @@
 
 ## JSON mapping roadmap
 
-<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 30%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 25%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
 
 <img src="images/chevrons.svg" alt="" style="object-fit: scale-down">
 
@@ -215,13 +225,20 @@
 
 ## Mappings roadmap
 
-<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 30%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+<div class="no-border" style="transform: rotate(90deg); position: absolute; left: 0%; top: 0%; height: 100%; width: 25%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
 
 <img src="images/chevrons.svg" alt="" style="object-fit: scale-down">
 
 </div>
 
 - ...
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Questions & Ideas?
 </div></script></section></div>
     </div>
 
