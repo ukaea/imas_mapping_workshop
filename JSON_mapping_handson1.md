@@ -322,8 +322,8 @@ Task #13: Clone one more repo.. I promise
 <br>
 
 ```bash
-cd $HOME
-git clone git@github.com:adam-parker1/UDA_workshop_plugin.git
+cd $HOME/json-plugin
+git clone https://github.com/adam-parker1/UDA_workshop_plugin.git
 cd UDA_workshop_plugin
 ```
 
