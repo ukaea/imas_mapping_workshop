@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="css/robot-lung.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+
+    <link rel="stylesheet" href="css/extra.css" />
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_title.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="licence" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+
+<div class="" style="padding: -10 0 0 0; box-sizing: border-box; position: absolute; left: 5%; top: 65%; height: 25%; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+
+
+
+## IMAS UDA Workshop
+# JSON Mapping Hands-On
+#### _<u>Adam Parker</u>, Jonathan Hollocombe, Stephen Dixon_ <br> November 21, 2023 &#8212; ITER
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Overview
+
+- This hands-on will cover mapping signals using JSON mapping files
+- You will become comfortable with the types of mapping: 
+	- VALUE
+	- DIMENSION
+	- PLUGIN
+	- EXPR
+- And how to call the relevant mappings directly and through IMAS
+- If time permits additional topics such as debugging, mapping tests, exploring MAST-U mappings
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Contents
+
+- Cloning the needed repositories
+	- JSON_mapping_plugin
+	- IMAS_workshop_mappings
+	- UDA_workshop_plugin
+- Install mappings to UDA server
+- Map homogeneous_time directly and through IMAS
+- Experiment with the functionality of the map types
+- Break it! + How to fix
+- Extra:
+	- pytest and validation
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Workshop Format
+
+- Each section will have some technical details
+- Any hands-on exercises will be marked with **Task \#N**
+- We will stop at each task to let people complete them before moving on
+- Hands-on material may be surrounded by relevant slides + hints
+- Please ask questions as we go
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Installing JSON Mapping Plugin
+
+<div class="task">
+Task #1: Clone the JSON mapping plugin repo
+</div>
+
+```bash
+cd $HOME
+git clone -b v0.1.2-alpha https://github.com/adam-parker1/JSON-mapping-plugin.git json-plugin
+cd json-plugin
+```
+
+<div class="task">
+Task #2: Install and activate
+</div>
+
+```bash
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/home/user/uda/install/lib/pkgconfig
+export PATH=$PATH:/home/user/uda/install/bin
+
+cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
+cmake --build build/ -j 2
+cmake --install build/
+./build/scripts/activate-plugins.sh
+
+uda_cli -h localhost -p 56565 "help::services()"
+uda_cli -h localhost -p 56565 "imas_json_map::help()"
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Install Workshop IMAS Mappings
+
+<div class="task">
+Task #3: Clone the repo containing the dummy mapping files
+</div>
+
+```bash
+cd $HOME
+git clone https://github.com/adam-parker1/IMAS_workshop_mappings.git
+cd IMAS_workshop_mappings
+```
+
+<div class="task">
+Task #4: Explore the repository
+</div>
+
+- Take a look inside the directories, familiarise yourself
+- E.g. mappings should look like this
+
+```bash
+$ ls mappings
+globals.json  magnetics  mock  pf_active
+```
+
+- There should be a `toplevel.schema.json` in `schemas/`<br>
+  (We will touch on this later)
+- Feel free to ask any questions
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Copy/Install Mappings
+
+<div class="task">
+Task #5: Install the mapping files to the server
+</div>
+ 
+```bash
+cd /home/user/uda/install/etc
+mkdir JSON_mappings
+mkdir JSON_mappings/draft
+```
+
+- Copy the magnetics and pf_active from <br>`$HOME/IMAS_workshop_mappings/mappings/*` into `JSON_mappings/draft`
+- As well as the toplevel config `mappings.cfg.json`
+- `JSON_mappings/draft` should then look as follows:
+
+```bash
+$ tree JSON_mappings/draft/
+JSON_mappings/draft/
+├── globals.json
+├── magnetics
+│   ├── globals.json
+│   └── mappings.json
+├── mappings.cfg.json
+├── mock
+│   ├── globals.json
+│   ├── mappings.json
+│   ├── test_open_fail.json
+│   └── test_open.json
+└── pf_active
+    ├── globals.json
+    └── mappings.json
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+## Installing pyuda client
+
+<div class="task">
+Extra Task if not completed yesterday
+</div>
+
+```sh
+cd $HOME
+python3 -m venv venv 
+source venv/bin/activate 
+pip3 install --upgrade pip
+pip3 install wheel cython numpy
+pip3 install uda/install/python_installer
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Get homogeneous_time
+
+<div class="task">
+Task #6: Retrieve homogeneous_time for magnetics and pf_active
+</div>
+
+- Call the plugin directly through pyuda
+- Set your host and port (hopefully you know this)
+
+```python
+import pyuda
+pyuda.Client.server = 'localhost'
+pyuda.Client.port = 56565
+client = pyuda.Client()
+result = client.get("IMAS_JSON_MAP::get(path=magnetics/ids_properties/homogeneous_time, mapping=DRAFT)")
+print(result.data)
+```
+- Then print and inspect what is returned
+
+<div class="task">
+Task #7: Retrieve homogeneous_time for magnetics and pf_active **through IMAS**
+</div>
+<br>
+
+- Now do the same using `partial_get` through the IMAS client
+
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/uda/install/lib
+python
+```
+
+```python
+import imas
+entry = imas.DBEntry('imas://localhost:56565/uda?mapping=DRAFT&verbose=1', 'r')
+flux_loop = entry.partial_get('magnetics' ,'flux_loop(3)')
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Break it! (very quick)
+
+<div class="task">
+Task #8: Modify your pf_active/mappings.json file so it is not valid
+</div>
+<br>
+<br>
+
+- Try call homogeneous_time again for pf_active
+- Inspect the logs within your `install/etc`
+	- Access.log
+	- Debug.log
+	- Error.log
+	- JSON_plugin.log
+
+- Hopefully you have something similar to  <br> `Could not load JSON mapping file`
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Fix and Validate
+
+<div class="task">
+Task #8: Install check-jsonschema
+</div>
+
+```bash
+pip3 install check-jsonschema
+## or use a virtual environment
+cd
+python3 -m venv venv
+./venv/bin/activate
+pip3 install check-jsonschema
+```
+
+<div class="task">
+Task #9: Validate JSON and compare to toplevel schema
+</div>
+
+```bash
+# cd to mapping directory
+SCHEMAFILE=/home/user/json-plugin/my-mappings/schemas/toplevel.schema.json
+cd /home/user/uda/install/etc/JSON_mappings/draft
+check-jsonschema -v --schemafile $SCHEMAFILE pf_active/mappings.json
+```
+
+Inspect the output and fix your problem (hopefully you know what it is... :)) <br> NOTE you made the changes to the copied server version, rather than the repo version!!
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Create Test Mapping Signal 
+
+<div class="task">
+Task #10: Add VALUE mapping entry to pf_active
+</div>
+
+```json
+{
+...
+	"my/random/signal": {
+		"MAP_TYPE": "VALUE",
+		"VALUE": 4.6
+	},
+...
+}
+```
+
+Call this mystery, random, test signal directly with the JSON plugin
+
+```python
+result = client.get("IMAS_JSON_MAP::get(path=pf_active/my/random/signal, mapping=DRAFT)")
+print(result.data)
+```
+
+Note, we still need to start with pf_active as this if the mapping file containing our mapping <br>(even if it is not an IDS path)
+
+<br> 
+
+**Extra points if you use templating**
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## 80% of your problems from here on out will be invalid JSON
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Map, Map, Map
+
+<div class="task">
+Task #11: Quickfire add mapping entries 1
+</div>
+<br>
+
+- Add VALUE map signal with a float value
+- Add VALUE map signal with an array of floats
+- **Extra:** Feel free to call both separately to check they work
+
+<div class="task">
+Task #12: Quickfire add mapping entries 2
+</div> 
+<br>
+
+- Use these two signals in an EXPR map type
+
+```json
+{
+...
+	"test/expression_signal": {
+		"MAP_TYPE": "EXPR",
+		"PARAMETERS": {
+			"X": "/test/signal1",
+			"Y": "/test/signal2"
+		},
+		"EXPR": "X*Y + 3.4"
+	},
+...
+}
+```
+
+- And call directly through `IMAS_JSON_MAP`
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Clone Data Access Template
+
+<div class="task">
+Task #13: Clone one more repo.. I promise
+</div>
+<br>
+
+```bash
+cd $HOME/json-plugin
+git clone https://github.com/adam-parker1/UDA_workshop_plugin.git
+```
+
+- add this line to the CMakeLists.txt file in `$HOME/json-plugin` at line 99
+
+```cmake 
+add_subdirectory(UDA_workshop_plugin)
+```
+
+Install and activate (the usual)
+
+```bash
+cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
+cmake --build build/ -j 2
+cmake --install build/
+./build/scripts/activate-plugins.sh
+
+uda_cli -h localhost -p 56565 "help::services()"
+uda_cli -h localhost -p 56565 "draft_json::help()"
+uda_cli -h localhost -p 56565 "draft_json::hands_on_status()"
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Use the ::get_test_array() function
+
+<div class="task">
+Task #14: Add PLUGIN entry and the FUNCTION field to pf_active
+</div>
+<br>
+
+```json
+{
+...
+	"test/plugin_function": {
+		"MAP_TYPE": "PLUGIN",
+		"PLUGIN": "DRAFT_JSON",
+		"ARGS": {},
+		"FUNCTION": "get_test_array"
+	},
+...
+}
+```
+
+Give it a go calling this `test/plugin_function` signal directly again
+
+```bash
+# should return...
+[0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Map, Map, Map 2
+
+<div class="task">
+Task #15: Quickfire add mapping entries 1
+</div>
+<br>
+
+- Attempt the DIMENSION map_type to get the size of `get_test_array()`
+
+```json
+{
+...
+	"test/plugin_function": {
+		"MAP_TYPE": "DIMENSION",
+		"DIM_PROBE": "test/plugin_function"
+	},
+...
+}
+```
+
+<div class="task">
+Task #16: Quickfire add mapping entries 2
+</div>
+<br>
+
+- Add signal entry to get the SLICE of the array to return only one float value
+
+<div class="task">
+Task #17: Quickfire add mapping entries 3
+</div> 
+<br>
+
+- Modify the SLICE entry signal to also OFFSET the data to **return 0**
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Final Mapping Test
+
+<div class="task">
+Task #18: Neutralise the get_test_array() data
+</div>
+<br>
+
+- Add a final signal entry to scale get_test_array() by **-1**
+
+```json
+	"SCALE": -1.0
+```
+
+- Using both the original get_test_array() and the scaled version, <br> 
+
+
+write an EXPR mapping type entry to `pf_active` such that the returned array is full of zeroes
+
+```bash
+# should return...
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="images/ukaea_slide.png" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1080px; width: 1920px; min-height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img class="shield" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg">
+
+
+
+## Extra
+
+- Using pytest to run schema mappings validation tests
+
+<br> 
+
+ **Add more if we get there**
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/menu/menu.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+		  RevealMenu,
+        ],
+
+
+    	allottedTime: 120 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+		menu: {
+			loadIcons: false
+		}
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":"1920","height":"1080","margin":0.04,"maxScale":"4","controls":true,"progress":true,"slideNumber":true,"transition":"none","transitionSpeed":"default"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>
