@@ -231,6 +231,7 @@ Task #9: Validate JSON and compare to toplevel schema
 
 ```bash
 # cd to mapping directory
+cd /home/user/json-plugin/my-mappings
 check-jsonschema -v --schemafile schemas/toplevel.schema.json mappings/pf_active/mappings.json
 ```
 
