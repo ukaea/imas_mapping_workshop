@@ -71,6 +71,7 @@ Task #2: Install and activate
 </div>
 
 ```bash
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/home/user/uda/install/lib/pkgconfig
 cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
 cmake --build build/ -j 2
 cmake --install build/
@@ -88,8 +89,8 @@ Task #3: Clone the repo containing the dummy mapping files
 </div>
 
 ```bash
-cd $HOME
-git clone https://github.com/adam-parker1/IMAS_workshop_mappings.git
+cd $HOME/json-plugin
+git clone https://github.com/adam-parker1/IMAS_workshop_mappings.git my_mappings
 cd my_mappings
 ```
 
@@ -121,9 +122,9 @@ mkdir JSON_mappings
 mkdir JSON_mappings/draft
 ```
 
-- Copy the magnetics and pf_active from <br>`$HOME/IMAS_workshop_mappings/mappings` into `JSON/mappings/draft`
+- Copy the magnetics and pf_active from <br>`$HOME/json-plugin/my-mappings/mappings/*` into `JSON_mappings/draft`
 - As well as the toplevel config `mappings.cfg.json`
-- It should look as follows:
+- `JSON_mappings/draft` should then look as follows:
 
 ```bash
 .
@@ -136,6 +137,20 @@ mkdir JSON_mappings/draft
     ├── globals.json
     └── mappings.json
 ```
+
+---
+## Installing pyuda client
+
+Extra Task if not completed yesterday
+
+```sh
+cd python3 -m venv venv 
+source venv/bin/activate 
+pip3 install --upgrade pip
+pip3 install wheel cython numpy
+pip3 install uda/install/python_installer
+```
+
 
 ---
 
@@ -152,6 +167,7 @@ Task #6: Retrieve homogeneous_time for magnetics and pf_active
 ...
 pyuda.Client.server = '<host>'
 pyuda.Client.port = <port>
+client = pyuda.Client()
 client.get("IMAS_JSON_MAP::get(path=magnetics/ids_properties/homogeneous_time, mapping=DRAFT)")
 ...
 ```
@@ -299,19 +315,17 @@ Task #13: Clone one more repo.. I promise
 <br>
 
 ```bash
-cd $HOME/json-plugins
+cd $HOME
 git clone git@github.com:adam-parker1/UDA_workshop_plugin.git
+cd UDA_workshop_plugin
 ```
 
 Install and activate (the usual)
 
 ```bash
-# Add the subdirectory to the toplevel CMakeLists.txt
-# Then you can redo the commands for compiling JSON_mapping_plugin
 cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
 cmake --build build/ -j 2
 cmake --install build/
-# Add the new plugin
 ./build/scripts/activate-plugins.sh
 
 uda_cli -h localhost -p 56565 "help::services()"
