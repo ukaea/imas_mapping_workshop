@@ -299,17 +299,19 @@ Task #13: Clone one more repo.. I promise
 <br>
 
 ```bash
-cd $HOME
+cd $HOME/json-plugins
 git clone git@github.com:adam-parker1/UDA_workshop_plugin.git
-cd UDA_workshop_plugin
 ```
 
 Install and activate (the usual)
 
 ```bash
+# Add the subdirectory to the toplevel CMakeLists.txt
+# Then you can redo the commands for compiling JSON_mapping_plugin
 cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
 cmake --build build/ -j 2
 cmake --install build/
+# Add the new plugin
 ./build/scripts/activate-plugins.sh
 
 uda_cli -h localhost -p 56565 "help::services()"
