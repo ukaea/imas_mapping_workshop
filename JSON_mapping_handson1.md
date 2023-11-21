@@ -193,7 +193,7 @@ Task #7: Retrieve homogeneous_time for magnetics and pf_active **through IMAS**
 -  you may need to set `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/uda/install/lib` 
 
 ```bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/uda/install/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/uda/install/lib
 python
 ```
 
