@@ -231,8 +231,9 @@ Task #9: Validate JSON and compare to toplevel schema
 
 ```bash
 # cd to mapping directory
-cd /home/user/json-plugin/my-mappings
-check-jsonschema -v --schemafile schemas/toplevel.schema.json mappings/pf_active/mappings.json
+SCHEMAFILE=/home/user/json-plugin/my-mappings/schemas/toplevel.schema.json
+cd /home/user/uda/install/etc/JSON_mappings/draft
+check-jsonschema -v --schemafile $SCHEMAFILE pf_active/mappings.json
 ```
 
 Inspect the output and fix your problem (hopefully you know what it is... :)) <br> NOTE you made the changes to the copied server version, rather than the repo version!!
