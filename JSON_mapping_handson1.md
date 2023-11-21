@@ -185,7 +185,7 @@ print(result.data)
 - Then print and inspect what is returned
 
 <div class="task">
-Task #7: Retrieve homogeneous_time for magnetics and pf_active **through IMAS**
+Task #7: Retrieve homogeneous_time for magnetics and pf_active through IMAS
 </div>
 <br>
 
@@ -198,8 +198,8 @@ python
 
 ```python
 import imas
-entry = imas.DBEntry('imas://localhost:56565/uda?mapping=DRAFT&verbose=1', 'r')
-flux_loop = entry.partial_get('magnetics' ,'flux_loop(3)')
+entry = imas.DBEntry('imas://localhost:56565/uda?mapping=DRAFT&verbose=1&path=/', 'r')
+entry.partial_get('magnetics' , 'ids_properties')
 ```
 
 ---
