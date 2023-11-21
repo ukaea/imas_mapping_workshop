@@ -72,6 +72,8 @@ Task #2: Install and activate
 
 ```bash
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/home/user/uda/install/lib/pkgconfig
+export PATH=$PATH:/home/user/uda/install/bin
+
 cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/uda/install
 cmake --build build/ -j 2
 cmake --install build/
@@ -89,9 +91,9 @@ Task #3: Clone the repo containing the dummy mapping files
 </div>
 
 ```bash
-cd $HOME/json-plugin
-git clone https://github.com/adam-parker1/IMAS_workshop_mappings.git my_mappings
-cd my_mappings
+cd $HOME
+git clone https://github.com/adam-parker1/IMAS_workshop_mappings.git
+cd IMAS_workshop_mappings
 ```
 
 <div class="task">
@@ -102,8 +104,8 @@ Task #4: Explore the repository
 - E.g. mappings should look like this
 
 ```bash
-╰─ ls mappings
-magnetics        mock           pf_active
+$ ls mappings
+globals.json  magnetics  mock  pf_active
 ```
 
 - There should be a `toplevel.schema.json` in `schemas/`<br>
@@ -122,17 +124,23 @@ mkdir JSON_mappings
 mkdir JSON_mappings/draft
 ```
 
-- Copy the magnetics and pf_active from <br>`$HOME/json-plugin/my-mappings/mappings/*` into `JSON_mappings/draft`
+- Copy the magnetics and pf_active from <br>`$HOME/IMAS_workshop_mappings/mappings/*` into `JSON_mappings/draft`
 - As well as the toplevel config `mappings.cfg.json`
 - `JSON_mappings/draft` should then look as follows:
 
 ```bash
-.
+$ tree JSON_mappings/draft/
+JSON_mappings/draft/
 ├── globals.json
 ├── magnetics
 │   ├── globals.json
 │   └── mappings.json
 ├── mappings.cfg.json
+├── mock
+│   ├── globals.json
+│   ├── mappings.json
+│   ├── test_open_fail.json
+│   └── test_open.json
 └── pf_active
     ├── globals.json
     └── mappings.json
@@ -146,7 +154,8 @@ Extra Task if not completed yesterday
 </div>
 
 ```sh
-cd python3 -m venv venv 
+cd $HOME
+python3 -m venv venv 
 source venv/bin/activate 
 pip3 install --upgrade pip
 pip3 install wheel cython numpy
@@ -167,12 +176,11 @@ Task #6: Retrieve homogeneous_time for magnetics and pf_active
 
 ```python
 import pyuda
-pyuda.Client.server = '<host>'
-pyuda.Client.port = <port>
+pyuda.Client.server = 'localhost'
+pyuda.Client.port = 56565
 client = pyuda.Client()
 result = client.get("IMAS_JSON_MAP::get(path=magnetics/ids_properties/homogeneous_time, mapping=DRAFT)")
 print(result.data)
-...
 ```
 - Then print and inspect what is returned
 
@@ -184,10 +192,15 @@ Task #7: Retrieve homogeneous_time for magnetics and pf_active **through IMAS**
 - Now do the same using `partial_get` through the IMAS client
 -  you may need to set `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/uda/install/lib` 
 
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/uda/install/lib
+python
+```
+
 ```python
 import imas
-entry = imas.DBEntry('imas://localhost:56565/uda?path=/home/user/data/105029/1&backend=hdf5&verbose=1', 'r')
-entry.partial_get('magnetics' ,'flux_loop(3)')
+entry = imas.DBEntry('imas://localhost:56565/uda?mapping=DRAFT&verbose=1', 'r')
+flux_loop = entry.partial_get('magnetics' ,'flux_loop(3)')
 ```
 
 ---
