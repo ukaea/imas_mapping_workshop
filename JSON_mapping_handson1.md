@@ -124,7 +124,7 @@ mkdir JSON_mappings
 mkdir JSON_mappings/draft
 ```
 
-- Copy the magnetics and pf_active from <br>`$HOME/IMAS_workshop_mappings/mappings/*` into `JSON_mappings/draft`
+- Copy the `magnetics` and `pf_active` from <br>`$HOME/IMAS_workshop_mappings/mappings` into `JSON_mappings/draft`
 - As well as the toplevel config `mappings.cfg.json`
 - `JSON_mappings/draft` should then look as follows:
 
@@ -136,11 +136,6 @@ JSON_mappings/draft/
 │   ├── globals.json
 │   └── mappings.json
 ├── mappings.cfg.json
-├── mock
-│   ├── globals.json
-│   ├── mappings.json
-│   ├── test_open_fail.json
-│   └── test_open.json
 └── pf_active
     ├── globals.json
     └── mappings.json
