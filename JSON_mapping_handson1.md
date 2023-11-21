@@ -324,7 +324,12 @@ Task #13: Clone one more repo.. I promise
 ```bash
 cd $HOME/json-plugin
 git clone https://github.com/adam-parker1/UDA_workshop_plugin.git
-cd UDA_workshop_plugin
+```
+
+- add this line to the CMakeLists.txt file in `$HOME/json-plugin` at line 99
+
+```cmake 
+add_subdirectory(UDA_workshop_plugin)
 ```
 
 Install and activate (the usual)
