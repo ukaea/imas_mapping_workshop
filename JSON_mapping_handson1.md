@@ -181,6 +181,7 @@ Task #7: Retrieve homogeneous_time for magnetics and pf_active **through IMAS**
 <br>
 
 - Now do the same using `partial_get` through the IMAS client
+-  you may need to set `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/uda/install/lib` 
 
 ```python
 import imas
