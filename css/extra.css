@@ -73,6 +73,11 @@ div.slide-number {
   padding-right: 1em;
 }
 
+.reveal div.no-border img {
+  border: none;
+  box-shadow: none;
+}
+
 .reveal blockquote {
   width: auto;
   font-style: normal;
