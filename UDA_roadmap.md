@@ -101,7 +101,23 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ![[chevrons.svg]]
 </grid>
 
-- ...
+- **Release v0.2.0-beta**
+	- Bug fixes from the tutorial, 
+		- including rework Exprtk integration, 
+		- handling of more data types 
+		- etc
+	- Public release of the repository 
+	  <br>(initially **v0.2.0-beta**), 
+		- move to UKAEA organisation area on Github
+		- cleanup, refactor, comment
+- **Release TBD**	
+	- Improved test suite and enable CI
+	 - Add signal caching for substantial performance gains (S Dixon)
+	 - Improve CMake structure, install protocol, and build transparency
+	 - Remove hardcoded paths and reliance on environment variables
+	   std::filesystem::path for io
+	- Error handling and improve error message description
+	- Documentation improvements
 
 ---
 ## Mappings roadmap
@@ -110,7 +126,23 @@ defaultTemplate: "[[tpl-ukaea-slide]]"
 ![[chevrons.svg]]
 </grid>
 
-- ...
+- **MAST-U Mapping Release TBD**
+	- Bug fixes to existing mapping (and continued validation)
+	- Finish mapping equilibrium IDS
+	- Release validated current 'completed' IDSs and make available on UDA3
+	- Map NBI, Summary, MSE, and Thomson Scattering IDSs
+	- Improve CI for the repository
+		- autogenerate documentation 
+		- run tests for known mapping values
+- **JET Mapping Release TBD**
+	- Finalise Summary IDS mapping from CPF
+		- (Including deploying from UDA server on the JDC)
+	- Finish Magnetics mappings
+		- (translate previous mappings to the JSON framework)
+- **General Framework Release TBD**
+	- Add more custom mapping features
+	- Move to mapping DD 4.0.0 develop (ready for release)
+	- Map, map, map, more IDSs, more machines (map team?)
 
 ---
 ## Questions & Ideas?
